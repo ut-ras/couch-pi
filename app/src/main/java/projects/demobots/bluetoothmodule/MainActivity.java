@@ -30,12 +30,13 @@ public class MainActivity extends AppCompatActivity {
     private static BluetoothLeScanner sBleScanner;
     private static ScanCallback sScanCallback;
     private PrintWriter outputToPi;
+    private BluetoothAdapter bluetoothAdapter;
     private InputStreamReader input;
 
     String t = "connected";
 
     //currently MAC_adr = Takuma's Laptop
-    String MAC_adr = "B8:27:EB:44:73:8F"; //TODO: change to raspberry pi MAC adr.
+    String MAC_adr = "B8:27:EB:2D:0F:98"; //TODO: change to raspberry pi MAC adr.
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static void searchBleDeviceByNames(final ScanCallback callback, String[] deviceNames) {
@@ -85,7 +86,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 TextView textView = findViewById(R.id.status);
                 textView.setText("tried to send stuff");
-                outputToPi.print("yo what up");
+                outputToPi.print("E");
+                outputToPi.flush();
             }
         });
 
@@ -131,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
                                     BluetoothSocket socket = device.createInsecureRfcommSocketToServiceRecord(MY_UUID);
                                     textView.setText("createInsecureRfcommSocketToServiceRecord\n");
                                     //attempt to connect to socket
+                                    bluetoothAdapter.cancelDiscovery();
                                     socket.connect();
                                     //set out/inputSteam if socket connection successful
                                     textView.append("connect\n");
