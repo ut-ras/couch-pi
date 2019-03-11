@@ -31,31 +31,26 @@ class Sabertooth(object):
     LEFT_MIXED = 0x0B
     RAMP = 0x10
 
-    def __init__(self, port, baudrate=9600, address=128, timeout=0.1):
+    serialObject = None
+
+    def __init__(self, address=128):
         """
         baudrate - 2400, 9600, 19200, 38400, 115200
         address - motor controller address
         timeout - serial read time out
         """
-        self.port = port
         self.address = address
 
         if 128 > self.address > 135:
             raise Exception('PySabertooth, invalid address: {}'.format(address))
 
-        # if baudrate in [9600, 19200, 38400, 115200]:
-        # 	pass
-        # else:
-        # 	raise Exception('PySabertooth, invalid baudrate {}'.format(baudrate))
 
-        # Initialize serial port.
-        self.saber = serial.Serial()
-        self.saber.baudrate = baudrate
-        self.saber.port = port
-        self.saber.timeout = timeout
-
-        self.open()
-        self.setBaudrate(baudrate)
+    @classmethod
+    def createSerial(cls, port, baudrate=9600, timeout=0.1):
+        cls.serialObject = serial.Serial()
+        cls.serialObject.baudrate = baudrate
+        cls.serialObject.port = port
+        cls.serialObject.timeout = timeout
 
     def __del__(self):
         """
@@ -72,17 +67,18 @@ class Sabertooth(object):
         print('')
         print('=' * 40)
         print('Sabertooth Motor Controller')
-        print('  port: {}'.format(self.saber.port))
-        print('  baudrate: {}  bps'.format(self.saber.baudrate))
+        print('  port: {}'.format(self.serialObject.port))
+        print('  baudrate: {}  bps'.format(self.serialObject.baudrate))
         print('  address: {}'.format(self.address))
         print('-' * 40)
         print('')
 
-    def close(self):
+    @classmethod
+    def close(cls):
         """
         Closes serial port
         """
-        self.saber.close()
+        cls.serialObject.close()
 
     def setBaudrate(self, baudrate):
         """
@@ -104,17 +100,18 @@ class Sabertooth(object):
         # command = 15
         # checksum = (self.address + command + baudrate) & 127
         self.sendCommand(15, baud)
-        self.saber.write(b'\xaa')
+        self.serialObject.write(b'\xaa')
         time.sleep(0.2)
 
-    def open(self):
+    @classmethod
+    def open(cls):
         """
         Opens serial port
         """
-        if not self.saber.is_open:
-            self.saber.open()
-        self.saber.write(b'\xaa')
-        self.saber.write(b'\xaa')
+        if not cls.serialObject.is_open:
+            cls.serialObject.open()
+            cls.serialObject.write(b'\xaa')
+            cls.serialObject.write(b'\xaa')
         time.sleep(0.2)
 
     def sendCommand(self, command, message):
@@ -137,9 +134,9 @@ class Sabertooth(object):
         # Write data packet.
         msg = [self.address, command, message, checksum]
         msg = bytes(bytearray(msg))
-        self.saber.write(msg)
+        self.serialObject.write(msg)
         # Flush UART.
-        self.saber.flush()
+        self.serialObject.flush()
 
     def stop(self):
         """
@@ -149,15 +146,15 @@ class Sabertooth(object):
         self.driveBoth(0, 0)
         return sentBytes
 
-    def drive(self, num, speed):
+    def drive(self, motorNum, speed):
         """Drive 1 or 2 motor"""
         # reverse commands are equal to forward+1
         cmds = [self.FORWARD_1, self.FORWARD_2]
 
         try:
-            cmd = cmds[num - 1]
+            cmd = cmds[motorNum - 1]
         except:
-            raise Exception('PySabertooth, invalid motor number: {}'.format(num))
+            raise Exception('PySabertooth, invalid motor number: {}'.format(motorNum))
 
         if speed < 0:
             speed = -speed
@@ -173,12 +170,17 @@ class Sabertooth(object):
         self.drive(1, speed1)
         self.drive(2, speed2)
 
-    def text(self, cmds):
-        """Send the simple ASCII commands"""
-        self.saber.write(cmds + b'\r\n')
+    def driveBothSame(self, speed):
+        self.driveBoth(speed,speed)
 
-    def textGet(self, cmds):
+    @classmethod
+    def text(cls, cmds):
         """Send the simple ASCII commands"""
-        self.text(cmds)
-        ans = self.saber.read(100)
+        cls.serialObject.write(cmds + b'\r\n')
+
+    @classmethod
+    def textGet(cls, cmds):
+        """Send the simple ASCII commands"""
+        cls.text(cmds)
+        ans = cls.serialObject.read(100)
         return ans
