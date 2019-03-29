@@ -1,5 +1,6 @@
-from Controller import Controller
-import pygame
+from Controllers.Controller import Controller
+
+
 # See https://stackoverflow.com/questions/19203819/reading-joystick-values-with-python
 # and https://theraspberryblonde.wordpress.com/2016/06/29/ps3-joystick-control-with-pygame/
 # on how to use pygame to read joystick/gamepad inputs
