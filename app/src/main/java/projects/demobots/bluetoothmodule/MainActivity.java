@@ -1,5 +1,6 @@
 package projects.demobots.bluetoothmodule;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -8,12 +9,16 @@ import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -32,6 +37,11 @@ public class MainActivity extends AppCompatActivity {
     private PrintWriter outputToPi;
     private BluetoothAdapter bluetoothAdapter;
     private InputStreamReader input;
+
+    private BluetoothSender bluetoothSender;
+
+    TextView forwardText;
+    TextView speedText;
 
     String t = "connected";
 
@@ -71,6 +81,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        forwardText = findViewById(R.id.textView);
+        speedText = findViewById(R.id.textView2);
+
+        setupForwardButton();
+        setupSpeedSlider();
+
+        bluetoothSender = new BluetoothSender();
+
         configureButton();
     }
 
@@ -86,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 TextView textView = findViewById(R.id.status);
                 textView.setText("tried to send stuff");
-                outputToPi.print("E");
+                outputToPi.print("Hello");
                 outputToPi.flush();
             }
         });
@@ -152,5 +170,58 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void setupForwardButton() {
+        final ImageButton forwardButton = findViewById(R.id.imageButton5);
+        forwardButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    forwardText.setText("Forward On");
+                    bluetoothSender.execute("forward");
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    forwardText.setText("Forward Off");
+                    bluetoothSender.execute("stop");
+                }
+                return true;
+            }
+        });
+    }
+
+    private void setupSpeedSlider() {
+        final SeekBar speedSlider = findViewById(R.id.seekBar);
+        speedSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                speedText.setText(String.valueOf(progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private class BluetoothSender extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            return strings[0];
+        }
+
+        @Override
+        protected void onPostExecute(String string) {
+            outputToPi.print(string);
+            outputToPi.flush();
+        }
     }
 }
