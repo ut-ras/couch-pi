@@ -24,6 +24,8 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.List;
@@ -146,9 +148,10 @@ public class MainActivity extends AppCompatActivity {
 
                                 try {
                                     //use this UUID instead of any dynamically generated one
-                                    UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+                                    //UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
                                     //connect to insecure socket
-                                    BluetoothSocket socket = device.createInsecureRfcommSocketToServiceRecord(MY_UUID);
+                                    Method m = device.getClass().getMethod("createInsecureRfcommSocket", new Class[] {int.class});
+                                    BluetoothSocket socket = (BluetoothSocket) m.invoke(device, 1);
                                     textView.setText("createInsecureRfcommSocketToServiceRecord\n");
                                     //attempt to connect to socket
                                     bluetoothAdapter.cancelDiscovery();
@@ -159,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                                     textView.append("PrintWriter\n");
                                     input = new InputStreamReader(socket.getInputStream());
                                     textView.append("InputStreamReader\n");
-                                } catch (IOException e) {
+                                } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
                                     //could not connect to socket
                                     textView.append(e.getMessage());
                                 }
@@ -180,10 +183,14 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     forwardText.setText("Forward On");
-                    bluetoothSender.execute("forward");
+                    //bluetoothSender.execute("forward");
+                    outputToPi.print("Forward On");
+                    outputToPi.flush();
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     forwardText.setText("Forward Off");
-                    bluetoothSender.execute("stop");
+                    //bluetoothSender.execute("stop");
+                    outputToPi.print("Forward Off");
+                    outputToPi.flush();
                 }
                 return true;
             }
@@ -210,6 +217,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //TODO: remove, no use for this class anymore
     @SuppressLint("StaticFieldLeak")
     private class BluetoothSender extends AsyncTask<String, Void, String> {
 
