@@ -8,6 +8,7 @@
 import bluetooth
 from ast import literal_eval
 
+
 def get_type(input_data):
     """
     returns data type of received data
@@ -18,24 +19,44 @@ def get_type(input_data):
         # A string, so return str
         return str
 
-def handleRight():
+def handleRightOn():
     #do stuff
-    print("right handled")
-    return
- 
-def handleLeft():
-    #do stuff
-    print("left handled")
-    return
- 
-def handleForward():
-    #do stuff
-    print("forward handled")
+    print("right on handled")
     return
 
-def handleBack():
+def handleRightOff():
     #do stuff
-    print("back handled")
+    print("right off handled")
+    return
+
+def handleLeftOn():
+    #do stuff
+    print("left on handled")
+    return
+
+def handleLeftOff():
+    #do stuff
+    print("left off handled")
+    return
+ 
+def handleForwardOn():
+    #do stuff
+    print("forward on handled")
+    return
+
+def handleForwardOff():
+    #do stuff
+    print("forward off handled")
+    return
+
+def handleBackwardOn():
+    #do stuff
+    print("backward on handled")
+    return
+
+def handleBackwardOff():
+    #do stuff
+    print("backward off handled")
     return
 
 def handleStop():
@@ -43,56 +64,62 @@ def handleStop():
     print("stop handled")
     return
 
-def handleQuit():
+def handleSpeed(speed):
+    #do stuff
+    print("speed changed to %d", speed)
     return
- 
+
+def handleTest():
+    print("testing")
+    return
+
 handler = {
         #all data has letter "b" before string and '' around sent string 
-        "'b'right": handleRight,
-        "'b'left": handleLeft,
-        "'b'forward": handleForward,
-        "'b'back": handleBack,
-        "'b'quit": handleQuit,
-        "'b'stop": handleStop
-        
+        "Stop": handleStop,
+        "Forward On": handleForwardOn,
+        "Forward Off": handleForwardOff,
+        "Left On": handleLeftOn,
+        "Left Off": handleLeftOff,
+        "Right On": handleRightOn,
+        "Right Off": handleRightOff,
+        "Backward On": handleBackwardOn,
+        "Backward Off": handleBackwardOff
 }
  
  
 def handle_input(argument):
     
     myType = get_type(argument)
-    if(myType == type("a string")):
+    if(myType == type("1")):
+        print(argument)
         # Get the function from handler dictionary
-        func = handler.get(str(argument), "nothing")
+        func = handler.get(str(argument), "Invalid command")
     elif(myType == type(1)):
-        #handle speed change
-        print("speed is an integer of %d", argument)
+        handleSpeed(int(argument))
     elif(myType == type(1.0)):
-        #handle speed change
         print("handled the following:")
         print(argument)
     else:
         print("handled the following:")
         print(argument)
     # Execute the function
+    if(func == "Invalid command"):
+        print("Invalid command")
+        return
     return func()
 
 def receiveMessages():
   server_sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
-  print(bluetooth.RFCOMM)
   port = 1
   server_sock.bind(("",port))
   server_sock.listen(1)
-  
+  print("Waiting for bluetooth connection . . .") 
   client_sock,address = server_sock.accept()
-  isReceiving = True
   print ("Accepted connection from " + str(address))
-  while(isReceiving): 
+  while(1): 
       data = client_sock.recv(1024)
       print ("received [%s]" % data)
-      returnData = handle_input(data)
-      if(returnData == False):
-          isReceiving = False
+      handle_input(data)
 
   client_sock.close()
   server_sock.close()
