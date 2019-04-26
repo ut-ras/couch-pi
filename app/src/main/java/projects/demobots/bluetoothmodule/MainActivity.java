@@ -30,7 +30,6 @@ import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -43,12 +42,22 @@ public class MainActivity extends AppCompatActivity {
     private BluetoothSender bluetoothSender;
 
     TextView forwardText;
+    TextView rightText;
     TextView speedText;
+
+    int forwardArrowWhite;
+    int forwardArrowBlue;
+
+    int stopDefault;
+    int stopPressed;
+
 
     String t = "connected";
 
     //currently MAC_adr = Takuma's Laptop
     String MAC_adr = "B8:27:EB:2D:0F:98"; //TODO: change to raspberry pi MAC adr.
+
+    //TODO: change button [and overall elements] names to be less ambiguous
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static void searchBleDeviceByNames(final ScanCallback callback, String[] deviceNames) {
@@ -84,9 +93,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         forwardText = findViewById(R.id.textView);
+        rightText = findViewById(R.id.textView3);
+
         speedText = findViewById(R.id.textView2);
 
+        forwardArrowWhite = R.drawable.ic_arrowup_w;
+        forwardArrowBlue = R.drawable.ic_arrowup_bl;
+
+        stopDefault = R.drawable.ic_stop;
+        stopPressed = R.drawable.ic_stop_pressed;
+
         setupForwardButton();
+        setupRightButton();
+        setupStopButton();
         setupSpeedSlider();
 
         bluetoothSender = new BluetoothSender();
@@ -97,9 +116,9 @@ public class MainActivity extends AppCompatActivity {
 
     //creates button that tries to connect to desired device
     private void configureButton() {
-        Button connectButton = findViewById(R.id.button);
+        Button connectButton = findViewById(R.id.connectButton);
 
-        Button sendString =  findViewById(R.id.sendString);
+        Button sendString =  findViewById(R.id.testSendButton);
 
         sendString.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -152,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                                     //connect to insecure socket
                                     Method m = device.getClass().getMethod("createInsecureRfcommSocket", new Class[] {int.class});
                                     BluetoothSocket socket = (BluetoothSocket) m.invoke(device, 1);
-                                    textView.setText("createInsecureRfcommSocketToServiceRecord\n");
+                                    textView.setText("connected\n");
                                     //attempt to connect to socket
                                     bluetoothAdapter.cancelDiscovery();
                                     socket.connect();
@@ -175,22 +194,84 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //TODO: make more efficient button setup (all in one function)
+
     @SuppressLint("ClickableViewAccessibility")
     private void setupForwardButton() {
-        final ImageButton forwardButton = findViewById(R.id.imageButton5);
+        final ImageButton forwardButton = findViewById(R.id.forwardButton);
         forwardButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     forwardText.setText("Forward On");
-                    //bluetoothSender.execute("forward");
-                    outputToPi.print("Forward On");
-                    outputToPi.flush();
+                    forwardButton.setImageResource(forwardArrowBlue);
+                    //bluetoothSender.execute("on");
+                    if (outputToPi != null) {
+                        outputToPi.print("forward on");
+                        outputToPi.flush();
+                    }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     forwardText.setText("Forward Off");
+                    forwardButton.setImageResource(forwardArrowWhite);
                     //bluetoothSender.execute("stop");
-                    outputToPi.print("Forward Off");
-                    outputToPi.flush();
+                    if (outputToPi != null) {
+                        outputToPi.print("forward off");
+                        outputToPi.flush();
+                    }
+                }
+                return true;
+            }
+        });
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void setupRightButton() {
+        final ImageButton rightButton = findViewById(R.id.rightButton);
+        rightButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    rightText.setText("Right On");
+                    //bluetoothSender.execute("on");
+                    if (outputToPi != null) {
+                        outputToPi.print("right on");
+                        outputToPi.flush();
+                    }
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    rightText.setText("Right Off");
+                    //bluetoothSender.execute("stop");
+                    if (outputToPi != null) {
+                        outputToPi.print("right off");
+                        outputToPi.flush();
+                    }
+                }
+                return true;
+            }
+        });
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void setupStopButton() {
+        final ImageButton stopButton = findViewById(R.id.stopButton);
+        stopButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    rightText.setText("Right On");
+                    stopButton.setImageResource(stopPressed);
+                    //bluetoothSender.execute("on");
+                    if (outputToPi != null) {
+                        outputToPi.print("right on");
+                        outputToPi.flush();
+                    }
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    rightText.setText("Right Off");
+                    stopButton.setImageResource(stopDefault);
+                    //bluetoothSender.execute("stop");
+                    if (outputToPi != null) {
+                        outputToPi.print("right off");
+                        outputToPi.flush();
+                    }
                 }
                 return true;
             }
