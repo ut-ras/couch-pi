@@ -1,6 +1,7 @@
 package projects.demobots.bluetoothmodule;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -9,7 +10,6 @@ import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -39,23 +39,11 @@ public class MainActivity extends AppCompatActivity {
     private BluetoothAdapter bluetoothAdapter;
     private InputStreamReader input;
 
-    private BluetoothSender bluetoothSender;
-
-    TextView forwardText;
-    TextView rightText;
+    View decorView;
+    
     TextView speedText;
 
-    int forwardArrowWhite;
-    int forwardArrowBlue;
-
-    int stopDefault;
-    int stopPressed;
-
-
-    String t = "connected";
-
-    //currently MAC_adr = Takuma's Laptop
-    String MAC_adr = "B8:27:EB:2D:0F:98"; //TODO: change to raspberry pi MAC adr.
+    String MAC_adr = "B8:27:EB:2D:0F:98";
 
     //TODO: change button [and overall elements] names to be less ambiguous
 
@@ -87,30 +75,39 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        forwardText = findViewById(R.id.textView);
-        rightText = findViewById(R.id.textView3);
+        decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+
+        setContentView(R.layout.activity_main);
 
         speedText = findViewById(R.id.textView2);
 
-        forwardArrowWhite = R.drawable.ic_arrowup_w;
-        forwardArrowBlue = R.drawable.ic_arrowup_bl;
-
-        stopDefault = R.drawable.ic_stop;
-        stopPressed = R.drawable.ic_stop_pressed;
-
-        setupForwardButton();
-        setupRightButton();
-        setupStopButton();
-        setupSpeedSlider();
-
-        bluetoothSender = new BluetoothSender();
+        setupDirectionalButtons();
 
         configureButton();
+    }
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            decorView.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        }
     }
 
 
@@ -146,7 +143,6 @@ public class MainActivity extends AppCompatActivity {
                 if (bluetoothAdapter.isEnabled()) {
                     //get list of all paired devices
                     Set<BluetoothDevice> bondedDevices = bluetoothAdapter.getBondedDevices();
-                    BluetoothLeScanner myScanner = bluetoothAdapter.getBluetoothLeScanner();
                     ScanCallback myCallback = new ScanCallback(){
                         @Override
                         public void onScanResult(int callbackType, ScanResult result){
@@ -166,8 +162,6 @@ public class MainActivity extends AppCompatActivity {
                             if (device.getAddress().equals(MAC_adr)) {
 
                                 try {
-                                    //use this UUID instead of any dynamically generated one
-                                    //UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
                                     //connect to insecure socket
                                     Method m = device.getClass().getMethod("createInsecureRfcommSocket", new Class[] {int.class});
                                     BluetoothSocket socket = (BluetoothSocket) m.invoke(device, 1);
@@ -185,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                                     //could not connect to socket
                                     textView.append(e.getMessage());
                                 }
+
                                 break;
                             }
                         }
@@ -194,88 +189,62 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //TODO: make more efficient button setup (all in one function)
+    private enum directionalButtons {
+        FORWARD (R.id.forwardButton, R.drawable.ic_arrowup_w, R.drawable.ic_arrowup_bl,
+                R.id.textView, "forward"),
+        RIGHT (R.id.rightButton, R.drawable.ic_arrowright_w, R.drawable.ic_arrowright_bl,
+                R.id.textView3, "right"),
+        BACKWARD (R.id.backButton, R.drawable.ic_arrowdown_w, R.drawable.ic_arrowdown_bl,
+                R.id.textView4, "backward"),
+        LEFT (R.id.leftButton, R.drawable.ic_arrowleft_w, R.drawable.ic_arrowleft_bl,
+                R.id.textView5, "left"),
+        STOP (R.id.stopButton, R.drawable.ic_stop, R.drawable.ic_stop_pressed,
+                R.id.textView6, "stop");
 
-    @SuppressLint("ClickableViewAccessibility")
-    private void setupForwardButton() {
-        final ImageButton forwardButton = findViewById(R.id.forwardButton);
-        forwardButton.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    forwardText.setText("Forward On");
-                    forwardButton.setImageResource(forwardArrowBlue);
-                    //bluetoothSender.execute("on");
-                    if (outputToPi != null) {
-                        outputToPi.print("forward on");
-                        outputToPi.flush();
-                    }
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    forwardText.setText("Forward Off");
-                    forwardButton.setImageResource(forwardArrowWhite);
-                    //bluetoothSender.execute("stop");
-                    if (outputToPi != null) {
-                        outputToPi.print("forward off");
-                        outputToPi.flush();
-                    }
-                }
-                return true;
-            }
-        });
+        private final int buttonID;
+        private final int baseID;
+        private final int pressedID;
+        private final int textViewID;
+        private final String name;
+
+        directionalButtons(int buttonID, int baseID, int pressedID, int textViewID, String name) {
+            this.buttonID = buttonID;
+            this.baseID = baseID;
+            this.pressedID = pressedID;
+            this.textViewID = textViewID;
+            this.name = name;
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private void setupRightButton() {
-        final ImageButton rightButton = findViewById(R.id.rightButton);
-        rightButton.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    rightText.setText("Right On");
-                    //bluetoothSender.execute("on");
-                    if (outputToPi != null) {
-                        outputToPi.print("right on");
-                        outputToPi.flush();
+    private void setupDirectionalButtons() {
+        for (final directionalButtons button : directionalButtons.values()) {
+            final ImageButton imageButton = findViewById(button.buttonID);
+            final TextView textView = findViewById(button.textViewID);
+            imageButton.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                        textView.setText(button.name + " on");
+                        imageButton.setImageResource(button.pressedID);
+                        //bluetoothSender.execute("on");
+                        if (outputToPi != null) {
+                            outputToPi.print(button.name + " on");
+                            outputToPi.flush();
+                        }
+                    } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                        textView.setText(button.name + " off");
+                        imageButton.setImageResource(button.baseID);
+                        //bluetoothSender.execute("stop");
+                        if (outputToPi != null) {
+                            outputToPi.print(button.name + " off");
+                            outputToPi.flush();
+                        }
                     }
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    rightText.setText("Right Off");
-                    //bluetoothSender.execute("stop");
-                    if (outputToPi != null) {
-                        outputToPi.print("right off");
-                        outputToPi.flush();
-                    }
+                    return true;
                 }
-                return true;
-            }
-        });
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    private void setupStopButton() {
-        final ImageButton stopButton = findViewById(R.id.stopButton);
-        stopButton.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    rightText.setText("Right On");
-                    stopButton.setImageResource(stopPressed);
-                    //bluetoothSender.execute("on");
-                    if (outputToPi != null) {
-                        outputToPi.print("right on");
-                        outputToPi.flush();
-                    }
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    rightText.setText("Right Off");
-                    stopButton.setImageResource(stopDefault);
-                    //bluetoothSender.execute("stop");
-                    if (outputToPi != null) {
-                        outputToPi.print("right off");
-                        outputToPi.flush();
-                    }
-                }
-                return true;
-            }
-        });
+            });
+        }
     }
 
     private void setupSpeedSlider() {
@@ -296,21 +265,5 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    //TODO: remove, no use for this class anymore
-    @SuppressLint("StaticFieldLeak")
-    private class BluetoothSender extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... strings) {
-            return strings[0];
-        }
-
-        @Override
-        protected void onPostExecute(String string) {
-            outputToPi.print(string);
-            outputToPi.flush();
-        }
     }
 }
