@@ -26,15 +26,8 @@ class testBenchCouch(Couch):
             self.drivetrain.setSpeed(self.controller.getMotorPercents())
 
     def startBluetoothDrivetrainControl(self):
-        self.drivetrainThread = Thread(target=self.readBluetoothUpdateMotors())
+        self.drivetrainThread = Thread(target=self.controller.readAndUpdate())
         self.drivetrainThread.start()
-        
-    def readBluetoothUpdateMotors(self):
-        """
-        Loop to run in a thread
-        Not to be called from outside this class
-        :return: none
-        """
-        self.controller.readAndUpdate()
+
     
     

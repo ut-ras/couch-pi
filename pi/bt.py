@@ -4,6 +4,13 @@
 # 
 # Taken from: https://people.csail.mit.edu/albert/bluez-intro/x232.html
 # Taken from: https://people.csail.mit.edu/albert/bluez-intro/c212.html
+"""
+For testing bluetooth connection with android application, 
+and testing receiving of messages from application.
+
+Does not interact with motors.
+"""
+
 
 import bluetooth
 from ast import literal_eval

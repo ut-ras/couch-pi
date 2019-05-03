@@ -5,11 +5,23 @@ from Drivetrains.TankDrivetrain import TankDrivetrain
 
 
 class BluetoothControl(Controller):
-    def __init__(self,name="Bluetooth Controller", motorPowerPercent = 0):
+    """
+    To use this class, 
+    
+    After creating a BluetoothControl instance,
+    1. Call "initialize"
+    2. Call "readAndUpdate"
+    
+    Then program will continuously wait for a device to connect
+    and input commands using bluetooth
+    """
+    
+    def __init__(self,name="Bluetooth Controller", motorPowerPercent = 50):
         super().__init__(name)
         self.motorPowerPercent = motorPowerPercent
         self.updateThread = None
         self.drivetrain = TankDrivetrain('/dev/ttyS0')
+        self.isStopped = False
         
 
     def initialize(self):
@@ -24,7 +36,7 @@ class BluetoothControl(Controller):
         
     def get_type(self,input_data):
         """
-        returns data type of received data
+        returns data type of input_data
         """
         try:
             return type(literal_eval(input_data))
@@ -33,71 +45,97 @@ class BluetoothControl(Controller):
             return str
     
     def handleRightOn(self):
-        #do stuff
-        self.drivetrain.drive(self.motorPowerPercent, -self.motorPowerPercent)
+        self.leftMotorPercent += self.motorPowerPercent/2
+        self.rightMotorPercent -= self.motorPowerPercent/2
+        if self.isStopped:
+            return
+        self.drivetrain.drive(self.leftMotorPercent, self.rightMotorPercent)
         print("right on handled")
         return
     
     def handleRightOff(self):
-        #do stuff
-        self.drivetrain.drive(0, 0)
+        self.leftMotorPercent -= self.motorPowerPercent/2
+        self.rightMotorPercent += self.motorPowerPercent/2
+        if self.isStopped:
+            return
+        self.drivetrain.drive(self.leftMotorPercent, self.rightMotorPercent)
         print("right off handled")
         return
     
     def handleLeftOn(self):
-        #do stuff
-        self.drivetrain.drive(self.motorPowerPercent, -self.motorPowerPercent)
+        self.leftMotorPercent -= self.motorPowerPercent/2
+        self.rightMotorPercent += self.motorPowerPercent/2
+        if self.isStopped:
+            return
+        self.drivetrain.drive(self.leftMotorPercent, self.rightMotorPercent)
         print("left on handled")
         return
     
     def handleLeftOff(self):
-        #do stuff
-        self.drivetrain.drive(0, 0)
+        self.leftMotorPercent += self.motorPowerPercent/2
+        self.rightMotorPercent -= self.motorPowerPercent/2
+        if self.isStopped:
+            return
+        self.drivetrain.drive(self.leftMotorPercent, self.rightMotorPercent)
         print("left off handled")
         return
      
     def handleForwardOn(self):
-        #do stuff
-        self.drivetrain.drive(self.motorPowerPercent, self.motorPowerPercent)
+        self.leftMotorPercent += self.motorPowerPercent
+        self.rightMotorPercent += self.motorPowerPercent
+        if self.isStopped:
+            return
+        self.drivetrain.drive(self.leftMotorPercent, self.rightMotorPercent)
         print("forward on handled")
         return
     
     def handleForwardOff(self):
-        #do stuff
-        self.drivetrain.drive(0, 0)
+        self.leftMotorPercent -= self.motorPowerPercent
+        self.rightMotorPercent -= self.motorPowerPercent
+        if self.isStopped:
+            return
+        self.drivetrain.drive(self.leftMotorPercent, self.rightMotorPercent)
         print("forward off handled")
         return
     
     def handleBackwardOn(self):
-        #do stuff
-        self.drivetrain.drive(-self.motorPowerPercent, -self.motorPowerPercent)
+        self.leftMotorPercent -= self.motorPowerPercent
+        self.rightMotorPercent -= self.motorPowerPercent
+        if self.isStopped:
+            return
+        self.drivetrain.drive(self.leftMotorPercent, self.rightMotorPercent)
         print("backward on handled")
         return
     
     def handleBackwardOff(self):
-        #do stuff
-        self.drivetrain.drive(0, 0)
+        self.leftMotorPercent += self.motorPowerPercent
+        self.rightMotorPercent += self.motorPowerPercent
+        if self.isStopped:
+            return
+        self.drivetrain.drive(self.leftMotorPercent, self.rightMotorPercent)
         print("backward off handled")
         return
     
     def handleStop(self):
-        #do stuff
+        self.isStopped = True
         self.drivetrain.drive(0, 0)
         print("stop handled")
         return
     
-    def handleSpeed(self,speed):
-        self.motorPowerPercent = speed
-        print("speed changed to %d", speed)
+    def handleStopOff(self):
+        self.isStopped = False
+        self.drivetrain.drive(self.leftMotorPercent, self.rightMotorPercent)
+        print("stop released")
         return
     
-    def handleTest(self):
-        print("testing")
+    def handleSpeed(self,speed):
+        #self.motorPowerPercent = speed
+        print("speed changed to %d.....but speed change is not yet implemented.", speed)
         return
     
     handler = {
-            #all data has letter "b" before string and '' around sent string 
             "Stop": handleStop,
+            "Stop Off": handleStopOff,
             "Forward On": handleForwardOn,
             "Forward Off": handleForwardOff,
             "Left On": handleLeftOn,
@@ -130,8 +168,10 @@ class BluetoothControl(Controller):
             return
         return func()
     
-    def receiveAndHandleMessages(self):
-      
+    def readAndUpdate(self):
+      """
+      Reads controls from bluetooth and sets speed on motors.
+      """
       while(1): 
           data = self.client_sock.recv(1024)
           print ("received [%s]" % data)
@@ -139,11 +179,4 @@ class BluetoothControl(Controller):
     
       self.client_sock.close()
       self.server_sock.close()
-      
-
-
-    def readAndUpdate(self):
-        data = self.client_sock.recv(1024)
-        print ("received [%s]" % data)
-        self.handle_input(data)
 
