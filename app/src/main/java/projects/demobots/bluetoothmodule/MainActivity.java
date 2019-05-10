@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
     TextView speedText;
 
+    int speed = 0;
+
     String MAC_adr_bigPi = "B8:27:EB:2D:0F:98";
     String MAC_adr_smallPi = "B8:27:EB:44:73:8F";
 
@@ -256,6 +258,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 speedText.setText("speed: " + String.valueOf(progress));
+                speed = progress;
             }
 
             @Override
@@ -265,7 +268,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                if (outputToPi != null) {
+                    outputToPi.print("speed " + String.valueOf(String.valueOf(speed)));
+                    outputToPi.flush();
+                }
             }
         });
     }
