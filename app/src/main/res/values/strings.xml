@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">bluetoothModule</string>
-    <string name="send">Send</string>
-    <string name="connect">connect</string>
-    <string name="not">not</string>
-</resources>
