@@ -3,12 +3,13 @@
 class Controller(object):
     """
     Parent class/Interface for all controller classes
+    MotorPercent range: [-100, 100]     negative = reverse
     """
     def __init__(self,name="Generic Controller"):
         # name of Controller
         self.name = name
-        self.leftMotorPercent = 0.5
-        self.rightMotorPercent = 0.5
+        self.leftMotorPercent = 0       
+        self.rightMotorPercent = 0
 
     def initialize(self):
         """

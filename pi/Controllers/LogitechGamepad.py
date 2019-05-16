@@ -70,7 +70,7 @@ class LogitechGamepad(Controller):
 
             if absevent.event.code == ecodes.ABS_Y:
                 #Left Y
-                self.leftMotorPercent = (1 - (absevent.event.value / self.joystickMax))
+                self.leftMotorPercent = (100 - (200 * absevent.event.value / self.joystickMax))
             elif absevent.event.code == ecodes.ABS_RZ:
                 #Right Y
-                self.rightMotorPercent = (1 - (absevent.event.value / self.joystickMax))
+                self.rightMotorPercent = (100 - (200 * absevent.event.value / self.joystickMax))
