@@ -1,17 +1,24 @@
+# To run:
+# pip3 install -r requirements.txt
+# python3 driveTest.py
+
 from Sabertooth import Sabertooth
 from time import sleep
+
 from Couches.testBenchCouch import testBenchCouch
+from Couches.testBenchCouchGamepad import testBenchCouchGamepad
+
 #from CommandLineController import CommandLineController
 from bluetoothController import BluetoothControl
 from Controllers.LogitechGamepad import LogitechGamepad
 
 def driveTest3():
     controller = LogitechGamepad()
-    couch = testBenchCouch(controller)
+    couch = testBenchCouchGamepad(controller)
     couch.startDrivetrainControl()
 
     while True:
-        pass
+        sleep(1)
 
 def driveTest1():
     controller = BluetoothControl()

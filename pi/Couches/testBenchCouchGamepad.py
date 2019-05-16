@@ -2,7 +2,7 @@ from Couches.Couch import Couch
 from Drivetrains.OneControllerDrivetrain import OneControllerDrivetrain
 from threading import Thread
 
-class testBenchCouch(Couch):
+class testBenchCouchGamepad(Couch):
     def __init__(self, controller):
         super().__init__()
         #self.setDrivetrain(OneControllerDrivetrain('/dev/ttyS0'))
@@ -12,8 +12,8 @@ class testBenchCouch(Couch):
 
     def startDrivetrainControl(self):
         self.setDrivetrain(OneControllerDrivetrain('/dev/ttyS0'))
-        self.controller.startController()
-        self.drivetrainThread = Thread(target=self.readControllerUpdateMotors())
+        #self.controller.startController()          #TODO issues with print statements from multiple threads
+        self.drivetrainThread = Thread(target=self.readControllerUpdateMotors(), daemon=True)
         self.drivetrainThread.start()
 
     def readControllerUpdateMotors(self):
@@ -23,4 +23,7 @@ class testBenchCouch(Couch):
         :return: none
         """
         while True:
-            self.drivetrain.setSpeed(self.controller.getMotorPercents())
+            self.controller.readAndUpdate()
+            motorSpeeds = self.controller.getMotorPercents()
+            print("Motor Speeds: " + str(motorSpeeds))
+            self.drivetrain.setSpeed(motorSpeeds)

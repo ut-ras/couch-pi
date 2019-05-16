@@ -7,8 +7,8 @@ class Controller(object):
     def __init__(self,name="Generic Controller"):
         # name of Controller
         self.name = name
-        self.leftMotorPercent = 0
-        self.rightMotorPercent = 0
+        self.leftMotorPercent = 0.5
+        self.rightMotorPercent = 0.5
 
     def initialize(self):
         """
