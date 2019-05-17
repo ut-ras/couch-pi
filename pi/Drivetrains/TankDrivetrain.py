@@ -14,7 +14,7 @@ class TankDrivetrain(object):
         self.sabertoothL.setBaudrate(baudrate)
         self.sabertoothR.setBaudrate(baudrate)
 
-    def drive(self, speed):
+    def setSpeed(self, speed):
         """
         Sets the speed of the left and right sabertooth drivers (both motors on each)
         :param speed: tuple (speedL, speedR)
