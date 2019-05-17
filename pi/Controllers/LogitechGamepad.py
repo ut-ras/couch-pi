@@ -17,8 +17,8 @@ import pprint
 # https://python-evdev.readthedocs.io/en/latest/tutorial.html
 
 class LogitechGamepad(Controller):
-    def __init__(self,name="Logitech Gamepad"):
-        super().__init__(name)
+    def __init__(self,name="Logitech Gamepad", maxSpeed=100):
+        super().__init__(name, maxSpeed)
         self.gamepad = InputDevice('/dev/input/event0')
         print(self.gamepad)
 
@@ -70,7 +70,7 @@ class LogitechGamepad(Controller):
 
             if absevent.event.code == ecodes.ABS_Y:
                 #Left Y
-                self.leftMotorPercent = (100 - (200 * absevent.event.value / self.joystickMax))
+                self.leftMotorPercent = (self.maxSpeed - (2 * self.maxSpeed * absevent.event.value / self.joystickMax))
             elif absevent.event.code == ecodes.ABS_RZ:
                 #Right Y
-                self.rightMotorPercent = (100 - (200 * absevent.event.value / self.joystickMax))
+                self.rightMotorPercent = (self.maxSpeed - (2 * self.maxSpeed * absevent.event.value / self.joystickMax))

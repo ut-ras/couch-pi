@@ -4,12 +4,19 @@ class Controller(object):
     """
     Parent class/Interface for all controller classes
     MotorPercent range: [-100, 100]     negative = reverse
+    maxSpeed range: [0, 100]
     """
-    def __init__(self,name="Generic Controller"):
+    def __init__(self,name="Generic Controller", maxSpeed=100):
         # name of Controller
         self.name = name
         self.leftMotorPercent = 0       
         self.rightMotorPercent = 0
+
+        if maxSpeed > 100:
+            maxSpeed = 100
+        elif maxSpeed < 0:
+            maxSpeed = 0
+        self.maxSpeed = maxSpeed
 
     def initialize(self):
         """

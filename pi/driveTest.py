@@ -13,7 +13,7 @@ from Controllers.LogitechGamepad import LogitechGamepad
 
 
 def driveTestGamepad():
-    controller = LogitechGamepad()
+    controller = LogitechGamepad(maxSpeed = 50)         # maxSpeed [0, 100]
     couch = testBenchCouch(controller)
     couch.startDrivetrainControl()
     while True:
