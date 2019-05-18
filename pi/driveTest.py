@@ -4,13 +4,18 @@
 # sudo pip3 install -r requirements.txt
 # sudo python3 driveTest.py
 
-# To run at startup
+# To python fie in background at startup with log files:
 # sudo vim /etc/rc.local
-#       sudo python3 /home/pi/couch-pi/pi/driveTest.py &
+#       sudo python3 /home/pi/couch-pi/pi/driveTest.py > /home/pi/couch-pi/pi/logs/log.$(date "+%Y.%m.%d-%H.%M.%S").txt 2>&1 &
 #       exit 0
+
+# Enable UART
+# add "enable_uart=1" to /boot/config.txt
 
 from Sabertooth import Sabertooth
 from time import sleep
+import sys
+import RPi.GPIO as GPIO
 
 from Couches.testBenchCouch import testBenchCouch
 #from CommandLineController import CommandLineController
@@ -20,14 +25,22 @@ from Drivetrains.OneControllerDrivetrain import OneControllerDrivetrain
 
 
 def driveTestGamepad():
+    ledInit(17)
+    #ledInit(27)
+    #ledInit(22)
+    ledOut(17, True)
+
     controller = LogitechGamepad(maxSpeed = 30)         # maxSpeed [0, 100]
     couch = testBenchCouch(controller)
 
     if couch.drivetrain.error or controller.error:
-        exit(0)
+        sys.exit()
         
     couch.startDrivetrainControl()
     while True:
+        ledOut(17, True)
+        sleep(1)
+        ledOut(17, False)
         sleep(1)
 
 
@@ -50,6 +63,16 @@ def driveTestSabertooth():
     while True:
         d.setSpeed((50, 50))
         sleep(1)
+
+
+
+def ledInit(pin):    
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(pin, GPIO.OUT)
+
+def ledOut(pin, output)
+    GPIO.output(pin, output)
+
 
 
 #driveTestSabertooth()
