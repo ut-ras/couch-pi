@@ -1,8 +1,13 @@
 # Test main functions for the couch
 # To run:
-# sudo apt-get install python3-serial
+# sudo apt-get install python3-pip
 # sudo pip3 install -r requirements.txt
 # sudo python3 driveTest.py
+
+# To run at startup
+# sudo vim /etc/rc.local
+#       sudo python3 /home/pi/couch-pi/pi/driveTest.py &
+#       exit 0
 
 from Sabertooth import Sabertooth
 from time import sleep
@@ -15,7 +20,7 @@ from Drivetrains.OneControllerDrivetrain import OneControllerDrivetrain
 
 
 def driveTestGamepad():
-    controller = LogitechGamepad(maxSpeed = 50)         # maxSpeed [0, 100]
+    controller = LogitechGamepad(maxSpeed = 30)         # maxSpeed [0, 100]
     couch = testBenchCouch(controller)
     couch.startDrivetrainControl()
     while True:

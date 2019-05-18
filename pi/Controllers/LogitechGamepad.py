@@ -19,13 +19,17 @@ import pprint
 class LogitechGamepad(Controller):
     def __init__(self,name="Logitech Gamepad", maxSpeed=100):
         super().__init__(name, maxSpeed)
-        self.gamepad = InputDevice('/dev/input/event0')
-        print(self.gamepad)
-
-        #get input options
-        print(pprint.pformat(self.gamepad.capabilities(verbose=True)))
-
-        self.joystickMax = 255
+        try:
+            self.gamepad = InputDevice('/dev/input/event0')
+            self.active = True
+            print(self.gamepad)
+            print(pprint.pformat(self.gamepad.capabilities(verbose=True))) #get input options
+        except FileNotFoundError:
+            self.gamepad = None
+            self.active = False
+            print("ERROR Gamepad is not plugged in")
+        finally:
+            self.joystickMax = 255
 
     def getStatus(self):
         pass
@@ -38,13 +42,19 @@ class LogitechGamepad(Controller):
         self.updateThread.start()
 
     def updateLoop(self):
-        for event in self.gamepad.read_loop():
-            self.handleEvent(event)
-
+        if self.gamepad is not None:
+            for event in self.gamepad.read_loop():
+                self.handleEvent(event)
+        else:
+            print("ERROR Gamepad is not plugged in")
+            
     def readAndUpdate(self):
-        r,w,x = select([self.gamepad], [], [])
-        for event in self.gamepad.read():
-            self.handleEvent(event)
+        if self.gamepad is not None:
+            r,w,x = select([self.gamepad], [], [])
+            for event in self.gamepad.read():
+                self.handleEvent(event)
+        else:
+            print("ERROR Gamepad is not plugged in")
 
     def handleEvent(self, event):
         if event.type == ecodes.EV_KEY:
