@@ -70,7 +70,7 @@ def ledInit(pin):
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(pin, GPIO.OUT)
 
-def ledOut(pin, output)
+def ledOut(pin, output):
     GPIO.output(pin, output)
 
 
