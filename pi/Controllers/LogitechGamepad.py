@@ -21,12 +21,10 @@ class LogitechGamepad(Controller):
         super().__init__(name, maxSpeed)
         try:
             self.gamepad = InputDevice('/dev/input/event0')
-            self.active = True
             print(self.gamepad)
             print(pprint.pformat(self.gamepad.capabilities(verbose=True))) #get input options
         except FileNotFoundError:
             self.gamepad = None
-            self.active = False
             print("ERROR Gamepad is not plugged in")
         finally:
             self.joystickMax = 255
@@ -47,7 +45,7 @@ class LogitechGamepad(Controller):
                 self.handleEvent(event)
         else:
             print("ERROR Gamepad is not plugged in")
-            
+
     def readAndUpdate(self):
         if self.gamepad is not None:
             r,w,x = select([self.gamepad], [], [])

@@ -7,12 +7,17 @@ from Sabertooth import Sabertooth
 class TankDrivetrain(object):
 
     def __init__(self, port, baudrate=9600, timeout=0.1):
-        Sabertooth.createSerial(port,baudrate,timeout)
-        Sabertooth.open()
-        self.sabertoothL = Sabertooth(address=128)
-        self.sabertoothR = Sabertooth(address=129)
-        self.sabertoothL.setBaudrate(baudrate)
-        self.sabertoothR.setBaudrate(baudrate)
+        try:
+            Sabertooth.createSerial(port,baudrate,timeout)
+            Sabertooth.open()
+            self.sabertoothL = Sabertooth(address=128)
+            self.sabertoothR = Sabertooth(address=129)
+            self.sabertoothL.setBaudrate(baudrate)
+            self.sabertoothR.setBaudrate(baudrate)
+        except FileNotFoundError:
+            print("ERROR Sabertooth Driver could not find UART /dev/ttyS0")
+            self.sabertoothL = None
+            self.sabertoothR = None
 
     def setSpeed(self, speed):
         """
@@ -20,7 +25,10 @@ class TankDrivetrain(object):
         :param speed: tuple (speedL, speedR)
         :return: nothing
         """
-        print("Drivetrain: L=" + str(speed[0]) + ", R=" + str(speed[1]))
-        self.sabertoothL.driveBoth(speed[0], speed[0])
-        self.sabertoothR.driveBoth(speed[1], speed[1])
+        if self.sabertoothL is not None and self.sabertoothR is not None:
+            print("Drivetrain: L=" + str(speed[0]) + ", R=" + str(speed[1]))
+            self.sabertoothL.driveBoth(speed[0], speed[0])
+            self.sabertoothR.driveBoth(speed[1], speed[1])
+        else:
+            print("ERROR Sabertooth Driver could not find UART /dev/ttyS0")
 
