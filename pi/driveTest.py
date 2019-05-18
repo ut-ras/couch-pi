@@ -22,6 +22,10 @@ from Drivetrains.OneControllerDrivetrain import OneControllerDrivetrain
 def driveTestGamepad():
     controller = LogitechGamepad(maxSpeed = 30)         # maxSpeed [0, 100]
     couch = testBenchCouch(controller)
+
+    if couch.drivetrain.error or controller.error:
+        exit(0)
+        
     couch.startDrivetrainControl()
     while True:
         sleep(1)

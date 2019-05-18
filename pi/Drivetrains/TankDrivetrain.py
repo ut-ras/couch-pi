@@ -1,5 +1,5 @@
 from Sabertooth import Sabertooth
-
+import serial
 
 # https://github.com/MomsFriendlyRobotCompany/pysabertooth
 
@@ -14,10 +14,12 @@ class TankDrivetrain(object):
             self.sabertoothR = Sabertooth(address=129)
             self.sabertoothL.setBaudrate(baudrate)
             self.sabertoothR.setBaudrate(baudrate)
-        except FileNotFoundError:
+            self.error = False
+        except (FileNotFoundError, serial.SerialException):
             print("ERROR Sabertooth Driver could not find UART /dev/ttyS0")
             self.sabertoothL = None
             self.sabertoothR = None
+            self.error = True
 
     def setSpeed(self, speed):
         """

@@ -23,8 +23,10 @@ class LogitechGamepad(Controller):
             self.gamepad = InputDevice('/dev/input/event0')
             print(self.gamepad)
             print(pprint.pformat(self.gamepad.capabilities(verbose=True))) #get input options
-        except FileNotFoundError:
+            self.error = False
+        except (FileNotFoundError, serial.SerialException):
             self.gamepad = None
+            self.error = True
             print("ERROR Gamepad is not plugged in")
         finally:
             self.joystickMax = 255
