@@ -8,6 +8,7 @@ from evdev import InputDevice, categorize, ecodes, KeyEvent
 from threading import Thread
 from select import select
 import pprint
+import serial
 
 # See https://stackoverflow.com/questions/19203819/reading-joystick-values-with-python
 # and https://theraspberryblonde.wordpress.com/2016/06/29/ps3-joystick-control-with-pygame/

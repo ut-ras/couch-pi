@@ -10,11 +10,11 @@ class testBenchCouch(Couch):
         self.controller.initialize()
         self.drivetrainThread = None
 
-    def startDrivetrainControl(self):
         # One or two motor drivers
         #self.setDrivetrain(OneControllerDrivetrain('/dev/ttyS0'))       #one sabertooth (address 128)
         self.setDrivetrain(TankDrivetrain('/dev/ttyS0'))               #two sabertooth (address 128, 129)
 
+    def startDrivetrainControl(self):
         # One Thread for reading controllers and updating motors
         self.drivetrainThread = Thread(target=self.readControllerUpdateMotors(), daemon=True)
         self.drivetrainThread.start()
