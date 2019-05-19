@@ -15,7 +15,7 @@
 from Sabertooth import Sabertooth
 from time import sleep
 import sys
-import RPi.GPIO as GPIO
+import led
 
 from Couches.testBenchCouch import testBenchCouch
 #from CommandLineController import CommandLineController
@@ -24,23 +24,26 @@ from Controllers.LogitechGamepad import LogitechGamepad
 from Drivetrains.OneControllerDrivetrain import OneControllerDrivetrain
 
 
+
+
 def driveTestGamepad():
-    ledInit(17)
-    #ledInit(27)
-    #ledInit(22)
-    ledOut(17, True)
+    led.ledInit(led.ledGreen)
+    led.ledInit(led.ledBlue)
+    led.ledInit(led.ledRed)
+
+    led.ledOut(led.ledBlue, True)
 
     controller = LogitechGamepad(maxSpeed = 30)         # maxSpeed [0, 100]
     couch = testBenchCouch(controller)
 
     if couch.drivetrain.error or controller.error:
+        led.ledOut(led.ledRed, True)
         sys.exit()
         
+    led.ledOut(led.ledGreen, True)
+
     couch.startDrivetrainControl()
     while True:
-        ledOut(17, True)
-        sleep(1)
-        ledOut(17, False)
         sleep(1)
 
 
@@ -63,16 +66,6 @@ def driveTestSabertooth():
     while True:
         d.setSpeed((50, 50))
         sleep(1)
-
-
-
-def ledInit(pin):    
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(pin, GPIO.OUT)
-
-def ledOut(pin, output):
-    GPIO.output(pin, output)
-
 
 
 #driveTestSabertooth()
