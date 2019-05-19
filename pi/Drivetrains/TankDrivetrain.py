@@ -28,7 +28,7 @@ class TankDrivetrain(object):
         :return: nothing
         """
         if self.sabertoothL is not None and self.sabertoothR is not None:
-            print("Drivetrain: L=" + str(speed[0]) + ", R=" + str(speed[1]))
+            #print("Drivetrain: L=" + str(speed[0]) + ", R=" + str(speed[1]))
             self.sabertoothL.driveBoth(speed[0], speed[0])
             self.sabertoothR.driveBoth(speed[1], speed[1])
         else:

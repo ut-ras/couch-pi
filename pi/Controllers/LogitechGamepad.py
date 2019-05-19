@@ -5,10 +5,11 @@
 
 from Controllers.Controller import Controller
 from evdev import InputDevice, categorize, ecodes, KeyEvent
-from threading import Thread
+from threading import Thread, Timer
 from select import select
 import pprint
 import serial
+import time
 
 # See https://stackoverflow.com/questions/19203819/reading-joystick-values-with-python
 # and https://theraspberryblonde.wordpress.com/2016/06/29/ps3-joystick-control-with-pygame/
@@ -31,9 +32,39 @@ class LogitechGamepad(Controller):
             print("ERROR Gamepad is not plugged in")
         finally:
             self.joystickMax = 255
+            self.leftMotorSetpoint = 0          #percent
+            self.rightMotorSetpoint = 0         #percent
+            self.stopDecelerationTime = 0.4     #seconds - for stop, decelerate from maxSpeed to 0 in this amount of time
+            self.acceleration = 18              #percent per second - general acceleration/deceleration
+            self.accelerationUpdateTime = 0.1   #seconds
+            Timer(self.accelerationUpdateTime, self.accelerationTimer).start()
+            
 
     def getStatus(self):
         pass
+
+    def accelerationTimer(self):
+        startT = time.time()
+        leftDiff = self.leftMotorSetpoint - self.leftMotorPercent
+        rightDiff = self.rightMotorSetpoint - self.rightMotorPercent
+        leftInc = 0
+        rightInc = 0
+
+        if abs(self.leftMotorSetpoint) < 3:
+            leftInc = self.maxSpeed / (self.stopDecelerationTime / self.accelerationUpdateTime)  
+        else:
+            leftInc = self.acceleration * self.accelerationUpdateTime 
+            
+        if abs(self.rightMotorSetpoint) < 3:
+            rightInc = self.maxSpeed / (self.stopDecelerationTime / self.accelerationUpdateTime)          
+        else:
+            rightInc = self.acceleration * self.accelerationUpdateTime   
+            
+        self.leftMotorPercent += min(leftInc, abs(leftDiff)) * (1 if leftDiff > 0 else -1)  
+        self.rightMotorPercent += min(rightInc, abs(rightDiff)) * (1 if rightDiff > 0 else -1)  
+        waitT = self.accelerationUpdateTime - (time.time() - startT)
+        #print("Wait: " + str(waitT))
+        Timer(waitT, self.accelerationTimer).start()
 
     def startController(self):
         """
@@ -81,7 +112,10 @@ class LogitechGamepad(Controller):
 
             if absevent.event.code == ecodes.ABS_Y:
                 #Left Y
-                self.leftMotorPercent = (self.maxSpeed - (2 * self.maxSpeed * absevent.event.value / self.joystickMax))
+                #self.leftMotorPercent = (self.maxSpeed - (2 * self.maxSpeed * absevent.event.value / self.joystickMax))
+                self.leftMotorSetpoint = (self.maxSpeed - (2 * self.maxSpeed * absevent.event.value / self.joystickMax))
             elif absevent.event.code == ecodes.ABS_RZ:
                 #Right Y
-                self.rightMotorPercent = (self.maxSpeed - (2 * self.maxSpeed * absevent.event.value / self.joystickMax))
+                #self.rightMotorPercent = (self.maxSpeed - (2 * self.maxSpeed * absevent.event.value / self.joystickMax))
+                self.rightMotorSetpoint = (self.maxSpeed - (2 * self.maxSpeed * absevent.event.value / self.joystickMax))
+                
