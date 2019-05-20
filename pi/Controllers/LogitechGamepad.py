@@ -35,7 +35,7 @@ class LogitechGamepad(Controller):
             self.leftMotorSetpoint = 0          #percent
             self.rightMotorSetpoint = 0         #percent
             self.stopDecelerationTime = 0.4     #seconds - for stop, decelerate from maxSpeed to 0 in this amount of time
-            self.acceleration = 18              #percent per second - general acceleration/deceleration
+            self.acceleration = 30              #percent per second - general acceleration/deceleration
             self.accelerationUpdateTime = 0.1   #seconds
             Timer(self.accelerationUpdateTime, self.accelerationTimer).start()
             

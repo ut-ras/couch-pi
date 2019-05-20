@@ -33,7 +33,7 @@ def driveTestGamepad():
 
     led.ledOut(led.ledBlue, True)
 
-    controller = LogitechGamepad(maxSpeed = 30)         # maxSpeed [0, 100]
+    controller = LogitechGamepad(maxSpeed = 50)         # maxSpeed [0, 100]
     couch = testBenchCouch(controller)
 
     if couch.drivetrain.error or controller.error:
