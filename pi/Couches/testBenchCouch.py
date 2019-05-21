@@ -30,12 +30,6 @@ class testBenchCouch(Couch):
         Timer(self.drivetrainUpdateTime, self.updateMotors).start()
         self.controller.startController() 
 
-    
-    #sets drivetrainThread to controller thread without any motor speed update      
-    def startBluetoothDrivetrainControl(self):
-        self.drivetrainThread = Thread(target=self.controller.readAndUpdate())
-        self.drivetrainThread.start()
-
     def readControllerUpdateMotors(self):
         """
         Loop to run in a thread - updates controller and motors
