@@ -161,9 +161,13 @@ class BluetoothControl(Controller):
       Reads controls from bluetooth and sets speed on motors.
       """
       while(1): 
-          data = self.client_sock.recv(1024)
-          print ("received [%s]" % data)
-          self.handle_input(data)
+          try:
+              data = self.client_sock.recv(1024)
+              print ("received [%s]" % data)
+              self.handle_input(data)
+          except:
+              self.leftMotorPercent = 0
+              self.rightMotorPercent = 0
     
       self.client_sock.close()
       self.server_sock.close()
