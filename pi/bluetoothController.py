@@ -134,16 +134,16 @@ class BluetoothControl(Controller):
         return
     
     handler = {
-            "Stop": handleStop,
-            "Stop Off": handleStopOff,
-            "Forward On": handleForwardOn,
-            "Forward Off": handleForwardOff,
-            "Left On": handleLeftOn,
-            "Left Off": handleLeftOff,
-            "Right On": handleRightOn,
-            "Right Off": handleRightOff,
-            "Backward On": handleBackwardOn,
-            "Backward Off": handleBackwardOff
+            "stop on": handleStop,
+            "stop off": handleStopOff,
+            "forward on": handleForwardOn,
+            "forward off": handleForwardOff,
+            "left on": handleLeftOn,
+            "left off": handleLeftOff,
+            "right on": handleRightOn,
+            "right off": handleRightOff,
+            "backward on": handleBackwardOn,
+            "backward off": handleBackwardOff
     }
      
      

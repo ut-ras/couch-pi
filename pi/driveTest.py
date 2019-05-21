@@ -42,7 +42,7 @@ def driveTestGamepad():
         
     led.ledOut(led.ledGreen, True)
 
-    couch.startDrivetrainControl()
+    couch.startBluetoothDrivetrainControl()
     while True:
         sleep(1)
 
@@ -50,12 +50,11 @@ def driveTestGamepad():
 def driveTestBluetooth():
     controller = BluetoothControl()
     couch = testBenchCouch(controller)
-    couch.startDrivetrainControl()
-    #while 1:
-    #    couch.startBluetoothDrivetrainControl()
-    #    print(controller.getMotorPercents())
-    #    print("-----------")
-    #    sleep(0.2)
+    couch.startBluetoothDrivetrainControl()
+    while 1:
+       print(controller.getMotorPercents())
+       print("-----------")
+       sleep(0.2)
 
 
 def driveTestSabertooth():
