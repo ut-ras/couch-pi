@@ -15,11 +15,11 @@
 from Sabertooth import Sabertooth
 from time import sleep
 import sys
-import led
 
+import Couches.Led
 from Couches.testBenchCouch import testBenchCouch
-#from CommandLineController import CommandLineController
-from bluetoothController import BluetoothControl
+#from Controllers.CommandLineController import CommandLineController
+from Controllers.bluetoothController import BluetoothControl
 from Controllers.LogitechGamepad import LogitechGamepad
 from Drivetrains.OneControllerDrivetrain import OneControllerDrivetrain
 
@@ -27,23 +27,23 @@ from Drivetrains.OneControllerDrivetrain import OneControllerDrivetrain
 
 
 def driveTestGamepad():
-    led.ledInit(led.ledGreen)
-    led.ledInit(led.ledBlue)
-    led.ledInit(led.ledRed)
-    led.ledStripInit()
+    Led.ledInit(Led.ledGreen)
+    Led.ledInit(Led.ledBlue)
+    Led.ledInit(Led.ledRed)
 
-    led.ledOut(led.ledBlue, True)
-    led.ledStripFill((0, 255, 0))
-    led.rainbow_cycle(0.01)
+    Led.ledOut(Led.ledBlue, True)
 
     controller = LogitechGamepad(maxSpeed = 50)         # maxSpeed [0, 100]
     couch = testBenchCouch(controller)
 
     if couch.drivetrain.error or controller.error:
-        led.ledOut(led.ledRed, True)
+        Led.ledOut(Led.ledRed, True)
         sys.exit()
         
-    led.ledOut(led.ledGreen, True)
+    Led.ledOut(Led.ledGreen, True)
+
+    couch.led.fill((0, 255, 0))
+    couch.led.rainbow_cycle(0.01)
 
     couch.startDrivetrainControl()
     while True:
@@ -51,20 +51,20 @@ def driveTestGamepad():
 
 
 def driveTestBluetooth():
-    led.ledInit(led.ledGreen)
-    led.ledInit(led.ledBlue)
-    led.ledInit(led.ledRed)
+    Led.ledInit(Led.ledGreen)
+    Led.ledInit(Led.ledBlue)
+    Led.ledInit(Led.ledRed)
 
-    led.ledOut(led.ledBlue, True)
+    Led.ledOut(Led.ledBlue, True)
     
     controller = BluetoothControl()
     couch = testBenchCouch(controller)
     
     if controller.error:
-        led.ledOut(led.ledRed, True)
+        Led.ledOut(Led.ledRed, True)
         sys.exit()
         
-    led.ledOut(led.ledGreen, True)
+    Led.ledOut(Led.ledGreen, True)
     
     couch.startDrivetrainControl()
     while 1:

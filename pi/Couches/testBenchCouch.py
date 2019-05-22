@@ -2,6 +2,7 @@ from Couches.Couch import Couch
 from Drivetrains.OneControllerDrivetrain import OneControllerDrivetrain
 from Drivetrains.TankDrivetrain import TankDrivetrain
 from threading import Thread, Timer
+from Couches.Led import LedStrip
 
 class testBenchCouch(Couch):
     def __init__(self, controller):
@@ -10,6 +11,7 @@ class testBenchCouch(Couch):
         self.controller.initialize()
         self.drivetrainThread = None
         self.drivetrainUpdateTime = 0.01
+        self.led = LedStrip()
 
         # One or two motor drivers
         #self.setDrivetrain(OneControllerDrivetrain('/dev/ttyS0'))       #one sabertooth (address 128)
