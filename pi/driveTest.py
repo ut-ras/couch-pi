@@ -34,6 +34,7 @@ def driveTestGamepad():
 
     led.ledOut(led.ledBlue, True)
     led.ledStripFill((0, 255, 0))
+    led.rainbow_cycle(0.01)
 
     controller = LogitechGamepad(maxSpeed = 50)         # maxSpeed [0, 100]
     couch = testBenchCouch(controller)
