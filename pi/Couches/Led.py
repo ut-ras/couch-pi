@@ -21,7 +21,7 @@ def ledOut(pin, output):
 # https://learn.adafruit.com/neopixels-on-raspberry-pi/python-usage
 class LedStrip():
     pixels = None
-    num_pixels = 73         #number of LEDs on the strip
+    num_pixels = 108         #number of LEDs on the strip        108 = 30 + 30 + 24 + 24
     ORDER = neopixel.GRB    #order of colors on the strip
 
     # NEOPIXEL LED STRIP
