@@ -2,3 +2,5 @@ pyserial
 evdev
 pybluez
 RPi.GPIO
+rpi_ws281x
+adafruit-circuitpython-neopixel

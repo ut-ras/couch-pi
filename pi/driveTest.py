@@ -30,8 +30,10 @@ def driveTestGamepad():
     led.ledInit(led.ledGreen)
     led.ledInit(led.ledBlue)
     led.ledInit(led.ledRed)
+    led.ledStripInit()
 
     led.ledOut(led.ledBlue, True)
+    led.ledStripFill((0, 255, 0))
 
     controller = LogitechGamepad(maxSpeed = 50)         # maxSpeed [0, 100]
     couch = testBenchCouch(controller)
@@ -81,5 +83,5 @@ def driveTestSabertooth():
 
 
 #driveTestSabertooth()
-driveTestBluetooth()
-#driveTestGamepad()
+#driveTestBluetooth()
+driveTestGamepad()
