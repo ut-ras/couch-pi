@@ -16,7 +16,7 @@ from Sabertooth import Sabertooth
 from time import sleep
 import sys
 
-import Couches.Led
+import Couches.Led as Led
 from Couches.testBenchCouch import testBenchCouch
 #from Controllers.CommandLineController import CommandLineController
 from Controllers.bluetoothController import BluetoothControl
