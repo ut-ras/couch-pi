@@ -50,7 +50,20 @@ class testBenchCouch(Couch):
         Not to be called from outside this class
         :return: none
         """
-        motorSpeeds = self.controller.getMotorPercents()
-        print("Motor Speeds: " + str(motorSpeeds))
-        self.drivetrain.setSpeed(motorSpeeds) 
+        if self.controller.error:
+            self.drivetrain.setSpeed((0, 0))
+            print("Controller Error, stopping couch")
+        else:
+            motorSpeeds = self.controller.getMotorPercents()
+            self.drivetrain.setSpeed(motorSpeeds) 
+            print("Motor Speeds: " + str(motorSpeeds))
+        
         Timer(self.drivetrainUpdateTime, self.updateMotors).start()
+
+    def toggleLedStrip(self, toggleOn):
+        if toggleOn:
+            self.led.rainbow_cycle(0.01)
+        else:
+            self.led.fill((0,0,0))
+            
+

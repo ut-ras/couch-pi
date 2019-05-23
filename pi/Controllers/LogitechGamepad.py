@@ -37,6 +37,8 @@ class LogitechGamepad(Controller):
             self.stopDecelerationTime = 0.4     #seconds - for stop, decelerate from maxSpeed to 0 in this amount of time
             self.acceleration = 30              #percent per second - general acceleration/deceleration
             self.accelerationUpdateTime = 0.1   #seconds
+            self.toggleA = False
+            self.btnAEvent = None
             Timer(self.accelerationUpdateTime, self.accelerationTimer).start()
             
 
@@ -75,8 +77,11 @@ class LogitechGamepad(Controller):
 
     def updateLoop(self):
         if self.gamepad is not None:
-            for event in self.gamepad.read_loop():
-                self.handleEvent(event)
+            try:
+                for event in self.gamepad.read_loop():
+                    self.handleEvent(event)
+            except:
+                self.error = True
         else:
             print("ERROR Gamepad is not plugged in")
 
@@ -94,10 +99,12 @@ class LogitechGamepad(Controller):
             print(keyevent.event)
             print(keyevent.keycode)
 
-            #Buttons example with KeyEvent
-            #if keyevent.keystate == KeyEvent.key_down:
-            #    if keyevent.keycode[0] == 'BTN_A':
-            #        pass
+            #Buttons with KeyEvent
+            if keyevent.keystate == KeyEvent.key_down:
+                if keyevent.keycode[0] == 'BTN_A':
+                    self.toggleA = not self.toggleA
+                    if self.btnAEvent not None:
+                        Thread(target=self.btnAEvent, name='Btn A Thread', args=(self.toggleA,)).start()
             
         elif event.type == ecodes.EV_ABS:
             absevent = categorize(event)
