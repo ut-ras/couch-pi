@@ -52,14 +52,11 @@ class LogitechGamepad(Controller):
         leftInc = 0
         rightInc = 0
 
-        if abs(self.leftMotorSetpoint) < 3:
-            leftInc = self.maxSpeed / (self.stopDecelerationTime / self.accelerationUpdateTime)  
+        if abs(self.leftMotorSetpoint) < 3 and abs(self.rightMotorSetpoint) < 3:
+            leftInc = self.maxSpeed / (self.stopDecelerationTime / self.accelerationUpdateTime) 
+            rightInc = self.maxSpeed / (self.stopDecelerationTime / self.accelerationUpdateTime)           
         else:
-            leftInc = self.acceleration * self.accelerationUpdateTime 
-            
-        if abs(self.rightMotorSetpoint) < 3:
-            rightInc = self.maxSpeed / (self.stopDecelerationTime / self.accelerationUpdateTime)          
-        else:
+            leftInc = self.acceleration * self.accelerationUpdateTime
             rightInc = self.acceleration * self.accelerationUpdateTime   
             
         self.leftMotorPercent += min(leftInc, abs(leftDiff)) * (1 if leftDiff > 0 else -1)  
