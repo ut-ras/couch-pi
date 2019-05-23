@@ -2,7 +2,7 @@ from Couches.Couch import Couch
 from Drivetrains.OneControllerDrivetrain import OneControllerDrivetrain
 from Drivetrains.TankDrivetrain import TankDrivetrain
 from threading import Thread, Timer
-from Couches.Led import 
+from Couches.Led import LedStrip
 import Couches.Led as Led
 
 class testBenchCouch(Couch):
@@ -65,7 +65,7 @@ class testBenchCouch(Couch):
     def toggleLedStrip(self, toggleOn):
         if toggleOn:
             self.led.brightness(0.5)
-            self.led.rainbow_cycle(0.01)
+            self.led.rainbow_cycle()
         else:
             self.led.clear()
             
