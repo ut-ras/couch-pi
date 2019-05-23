@@ -65,7 +65,7 @@ class LedStrip():
     
     
     def rainbow_cycle(self):
-        for i in range(self.num_pixels):
+        for i in reversed(range(self.num_pixels)):
             pixel_index = (i * 256 // self.num_pixels)
             self.pixels[i] = self.wheel(pixel_index & 255)
         self.pixels.show()
