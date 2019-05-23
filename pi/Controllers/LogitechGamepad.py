@@ -101,7 +101,7 @@ class LogitechGamepad(Controller):
     def handleEvent(self, event):
         if event.type == ecodes.EV_KEY:
             keyevent = categorize(event)
-            print(keyevent.event)
+            #print(keyevent.event)
             print(keyevent.keycode)
 
             #Buttons with KeyEvent
@@ -128,8 +128,8 @@ class LogitechGamepad(Controller):
 
         elif event.type == ecodes.EV_ABS:
             absevent = categorize(event)
-            print(absevent.event)
-            print(absevent.event.value)
+            #print(absevent.event)
+            print(str(absevent.event.code) + " " + str(absevent.event.value))
 
             # AbsEvent code values
             #ABS_Y / 1 / Left Y
