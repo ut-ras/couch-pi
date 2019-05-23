@@ -80,8 +80,9 @@ class LogitechGamepad(Controller):
             try:
                 for event in self.gamepad.read_loop():
                     self.handleEvent(event)
-            except:
+            except Exception as e:
                 self.error = True
+                print(e)
         else:
             print("ERROR Gamepad is not plugged in")
 
@@ -101,9 +102,9 @@ class LogitechGamepad(Controller):
 
             #Buttons with KeyEvent
             if keyevent.keystate == KeyEvent.key_down:
-                if keyevent.keycode[0] == 'BTN_A':
+                if keyevent.keycode == 'BTN_THUMB':
                     self.toggleA = not self.toggleA
-                    if self.btnAEvent not None:
+                    if self.btnAEvent is not None:
                         Thread(target=self.btnAEvent, name='Btn A Thread', args=(self.toggleA,)).start()
             
         elif event.type == ecodes.EV_ABS:

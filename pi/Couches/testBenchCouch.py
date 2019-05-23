@@ -2,7 +2,8 @@ from Couches.Couch import Couch
 from Drivetrains.OneControllerDrivetrain import OneControllerDrivetrain
 from Drivetrains.TankDrivetrain import TankDrivetrain
 from threading import Thread, Timer
-from Couches.Led import LedStrip
+from Couches.Led import 
+import Couches.Led as Led
 
 class testBenchCouch(Couch):
     def __init__(self, controller):
@@ -53,6 +54,7 @@ class testBenchCouch(Couch):
         if self.controller.error:
             self.drivetrain.setSpeed((0, 0))
             print("Controller Error, stopping couch")
+            Led.ledOut(Led.ledRed, True)
         else:
             motorSpeeds = self.controller.getMotorPercents()
             self.drivetrain.setSpeed(motorSpeeds) 
@@ -62,8 +64,9 @@ class testBenchCouch(Couch):
 
     def toggleLedStrip(self, toggleOn):
         if toggleOn:
+            self.led.brightness(0.5)
             self.led.rainbow_cycle(0.01)
         else:
-            self.led.fill((0,0,0))
+            self.led.clear()
             
 

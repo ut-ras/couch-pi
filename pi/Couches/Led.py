@@ -28,10 +28,19 @@ class LedStrip():
 
     def __init__(self):
         self.pixels = neopixel.NeoPixel(board.D18, self.num_pixels, pixel_order=self.ORDER)
+        self.clear()
+
+    def clear(self):
+        self.fill((0,0,0))
+        self.brightness(0)
 
     # colors: tuple
     def fill(self, colors):
         self.pixels.fill(colors)
+
+    # b: float [0, 1]
+    def brightness(self, b):
+        self.pixels.brightness = b
 
     def wheel(self, pos):
         # Input a value 0 to 255 to get a color value.
