@@ -33,7 +33,7 @@ def driveTestGamepad():
 
     Led.ledOut(Led.ledBlue, True)
 
-    controller = LogitechGamepad(maxSpeed = 50)         # maxSpeed [0, 100]
+    controller = LogitechGamepad(maxSpeed = 80)         # maxSpeed [0, 100]
     couch = testBenchCouch(controller)
     controller.btnAEvent = couch.toggleLedStrip
 
