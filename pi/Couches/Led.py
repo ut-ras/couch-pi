@@ -23,6 +23,8 @@ class LedStrip():
     pixels = None
     num_pixels = 108         #number of LEDs on the strip        108 = 30 + 30 + 24 + 24
     ORDER = neopixel.GRB    #order of colors on the strip
+    
+    burntorange = (191, 30, 0)      #should be (191, 87, 0) but the green makes it look yellow
 
     # NEOPIXEL LED STRIP
 
@@ -62,8 +64,7 @@ class LedStrip():
             g = int(pos*3)
             b = int(255 - pos*3)
         return (r, g, b) if self.ORDER == neopixel.RGB or self.ORDER == neopixel.GRB else (r, g, b, 0)
-    
-    
+
     def rainbow_cycle(self):
         for i in reversed(range(self.num_pixels)):
             pixel_index = (i * 256 // self.num_pixels)
@@ -72,5 +73,7 @@ class LedStrip():
             
     #burnt orange
     def longhorn(self):
-        self.fill((204, 85, 0))
+        for i in reversed(range(self.num_pixels)):
+            self.pixels[i] = self.burntorange
+        self.pixels.show()
     
