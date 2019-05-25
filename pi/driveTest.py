@@ -36,6 +36,7 @@ def driveTestGamepad():
     controller = LogitechGamepad(maxSpeed = 80)         # maxSpeed [0, 100]
     couch = testBenchCouch(controller)
     controller.btnAEvent = couch.toggleLedStrip
+    controller.btnXEvent = couch.toggleLedOrange
 
     if couch.drivetrain.error or controller.error:
         Led.ledOut(Led.ledRed, True)

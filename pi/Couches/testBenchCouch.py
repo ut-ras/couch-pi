@@ -73,4 +73,10 @@ class testBenchCouch(Couch):
         else:
             self.led.clear()
             
+    def toggleLedOrange(self, toggleOn):
+        if toggleOn:
+            self.led.brightness(0.5)
+            self.led.longhorn()
+        else:
+            self.led.clear()
 

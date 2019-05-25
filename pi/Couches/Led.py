@@ -70,4 +70,7 @@ class LedStrip():
             self.pixels[i] = self.wheel(pixel_index & 255)
         self.pixels.show()
             
+    #burnt orange
+    def longhorn(self):
+        self.fill((204, 85, 0))
     

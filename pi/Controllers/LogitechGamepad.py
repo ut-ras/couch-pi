@@ -33,9 +33,11 @@ class LogitechGamepad(Controller):
     toggleLeftBump = False
     toggleRightBump = False
     toggleA = False
+    toggleX = False
     toggleB = False
     btnAEvent = None
-
+    btnXEvent = None
+    
     def __init__(self,name="Logitech Gamepad", maxSpeed=100):
         super().__init__(name, maxSpeed)
         try:
@@ -110,6 +112,10 @@ class LogitechGamepad(Controller):
                     self.toggleA = not self.toggleA
                     if self.btnAEvent is not None:
                         Thread(target=self.btnAEvent, name='Btn A Thread', args=(self.toggleA,)).start()
+                if keyevent.keycode == 'BTN_JOYSTICK':
+                    self.toggleX = not self.toggleX
+                    if self.btnXEvent is not None:
+                        Thread(target=self.btnXEvent, name='Btn X Thread', args=(self.toggleX,)).start()
                 elif keyevent.keycode == 'BTN_THUMB2':
                     self.toggleB = True
                 elif keyevent.keycode == 'BTN_BASE':
