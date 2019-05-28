@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     String MAC_adr_bigPi = "B8:27:EB:2D:0F:98";
     String MAC_adr_smallPi = "B8:27:EB:44:73:8F";
+    String MAC_adr_smallPiOther = "B8:27:EB:70:A5:F3";
 
     //TODO: change button [and overall elements] names to be less ambiguous
 
@@ -164,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
                         for (BluetoothDevice device : bondedDevices) {
                             //find correct MAC address for desired device
                             textView.append("\n" + "name = " + device.getName() + "address = " + device.getAddress());
-                            if (device.getAddress().equals(MAC_adr_smallPi)) {
+                            if (device.getAddress().equals(MAC_adr_smallPiOther)) {
 
                                 try {
                                     //connect to insecure socket
@@ -237,7 +238,9 @@ public class MainActivity extends AppCompatActivity {
                             outputToPi.print(button.name + " on");
                             outputToPi.flush();
                         }
-                    } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() ==
+                        MotionEvent.ACTION_BUTTON_RELEASE || event.getAction() ==
+                        MotionEvent.ACTION_CANCEL) {
                         textView.setText(button.name + " off");
                         imageButton.setImageResource(button.baseID);
                         //bluetoothSender.execute("stop");
