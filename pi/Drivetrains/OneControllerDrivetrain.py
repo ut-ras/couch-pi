@@ -18,4 +18,5 @@ class OneControllerDrivetrain(object):
         :param speed: tuple (speedL, speedR)
         :return: nothing
         """
+        print("Drivetrain: L=" + str(speed[0]) + ", R=" + str(speed[1]))
         self.sabertooth.driveBoth(speed[0], speed[1])
