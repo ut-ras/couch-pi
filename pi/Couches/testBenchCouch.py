@@ -68,15 +68,15 @@ class testBenchCouch(Couch):
 
     def toggleLedStrip(self, toggleOn):
         if toggleOn:
-            self.led.brightness(0.5)
-            self.led.rainbow_cycle()
+            self.led.turnOn()
+            self.led.setMode('R')
         else:
-            self.led.clear()
+            self.led.turnOff()
             
     def toggleLedOrange(self, toggleOn):
         if toggleOn:
-            self.led.brightness(0.5)
-            self.led.longhorn()
+            self.led.turnOn()
+            self.led.setMode('L')
         else:
-            self.led.clear()
+            self.led.turnOff()
 
