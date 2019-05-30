@@ -102,7 +102,7 @@ class LedStrip():
             sat += (1 - sat_range)
         else:
             sat = 1 - sat
-        print(sat)
+        #print(sat)
         return tuple(round(i * 255) for i in colorsys.hsv_to_rgb(self.burntorange_hue, sat, 1))
 
     def longhornCycleStripes2(self, i , c):
