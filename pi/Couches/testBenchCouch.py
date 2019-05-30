@@ -62,7 +62,7 @@ class testBenchCouch(Couch):
         else:
             motorSpeeds = self.controller.getMotorPercents()
             self.drivetrain.setSpeed(motorSpeeds) 
-            #print("Motor Speeds: " + str(motorSpeeds))
+            print("Motor Speeds: " + str(motorSpeeds))
         
         Timer(self.drivetrainUpdateTime, self.updateMotors).start()
 

@@ -23,7 +23,7 @@ class LogitechGamepad(Controller):
     leftMotorSetpoint = 0          #percent
     rightMotorSetpoint = 0         #percent
 
-    stopDecelerationTime = 0.4     #seconds - for stop, decelerate from maxSpeed to 0 in this amount of time
+    stopDecelerationTime = 0.5     #seconds - for stop, decelerate from maxSpeed to 0 in this amount of time
     stopFast = False
     stopJoystickThresh = 5         #trigger fast stop when both joysticks under this value
     
