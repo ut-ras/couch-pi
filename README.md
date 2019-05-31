@@ -11,8 +11,8 @@ Robotic couch that runs on a Raspberry Pi Zero W with a Bluetooth Android App co
 Detailed Hardware BOM and CAD will be added soon
 * [Two Sabertooth 2x60 Dual 60A Motor Drivers](https://www.amazon.com/Sabertooth-2x60-Dual-Motor-Driver/dp/B00B3Z347W) in Packetized Serial mode
 * Four DC Motors and Wheels
-* Raspberry Pi Zero W
-* Logitech Gamepad
+* [Raspberry Pi Zero W](https://www.adafruit.com/product/3400)
+* [Logitech Gamepad F310](https://www.amazon.com/Logitech-940-000110-Gamepad-F310/dp/B003VAHYQY/ref=sr_1_4?ie=UTF8&qid=1550446653&sr=8-4&keywords=pc+gamepad) and MicroUSB to USB Adapter
 * Neopixel RGB LED Strip
 * [Emergency Stop Button](https://www.amazon.com/JMAF-Mushroom-Emergency-Button-Switch/dp/B07BCY7HGN)
 * [300A Power Switch](https://www.amazon.com/Blue-Sea-Systems-Battery-Switch/dp/B00445KFZ2)
@@ -22,6 +22,8 @@ Detailed Hardware BOM and CAD will be added soon
 * [4 Gage Wire](https://www.mcmaster.com/6948k92) for Battery connections
 * [10 Gage Wire](https://www.mcmaster.com/6659t18) for Motor connections
 
+## Block Diagram
+![Friendly Circuit Schematic](img/Couch_Friendly_Diagram.png)
 
 ## Software
 ### Python Couch Library for Raspberry Pi
