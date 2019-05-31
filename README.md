@@ -3,8 +3,11 @@ Robotic couch that runs on a Raspberry Pi Zero W with a Bluetooth Android App co
 
 
 ## Current Couch
-![Couch LEDs](img/couch_lights.jpg)
 ![Couch First Draft](img/couch_firstdraft.png)
+![Couch LEDs](img/couch_lights_3.jpg)
+![Couch Gif](img/couch.gif)
+![Couch Rainbow Gif](img/couch_rainbow.gif)
+![Couch Outside Gif](img/couch_outside.gif)
 
 
 ## Parts List
