@@ -4,7 +4,7 @@
 # sudo pip3 install -r requirements.txt
 # sudo python3 driveTest.py
 
-# To python fie in background at startup with log files:
+# To run python file in background at startup with log files:
 # sudo vim /etc/rc.local
 #       sudo python3 /home/pi/couch-pi/pi/driveTest.py > /home/pi/couch-pi/pi/logs/log.$(date "+%Y.%m.%d-%H.%M.%S").txt 2>&1 &
 #       exit 0
