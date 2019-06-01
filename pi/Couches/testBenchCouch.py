@@ -1,23 +1,28 @@
 from Couches.Couch import Couch
 from Drivetrains.OneControllerDrivetrain import OneControllerDrivetrain
 from Drivetrains.TankDrivetrain import TankDrivetrain
+from Drivetrains.TankDrivetrainAcceleration import TankDrivetrainAcceleration
 from threading import Thread, Timer
-from Couches.Led import LedStrip
-import Couches.Led as Led
+from Drivers.Led import LedStrip
+import Drivers.Led as Led
+
 import sys
+import time
 
 class testBenchCouch(Couch):
+    drivetrainThread = None
+    drivetrainUpdateTime = 0.02
+    lastT = 0
+
     def __init__(self, controller):
         super().__init__()
         self.controller = controller
         self.controller.initialize()
-        self.drivetrainThread = None
-        self.drivetrainUpdateTime = 0.01
         self.led = LedStrip()
 
         # One or two motor drivers
         #self.setDrivetrain(OneControllerDrivetrain('/dev/ttyS0'))       #one sabertooth (address 128)
-        self.setDrivetrain(TankDrivetrain('/dev/ttyS0'))               #two sabertooth (address 128, 129)
+        self.setDrivetrain(TankDrivetrainAcceleration('/dev/ttyS0', accelerationUpdateTime=self.drivetrainUpdateTime))               #two sabertooth (address 128, 129)
 
     def startDrivetrainControl(self):
         # One Thread for reading controllers and updating motors
@@ -52,19 +57,27 @@ class testBenchCouch(Couch):
         Not to be called from outside this class
         :return: none
         """
+        startT = time.time()
+
         if self.controller.error:
-            self.drivetrain.setSpeed((0, 0))
+            self.drivetrain.setSabertoothPercent((0, 0))
             Led.ledOut(Led.ledRed, True)
             Led.ledOut(Led.ledGreen, False)
             print("Controller Error, stopping couch")
-            self.led.clear()
+            self.led.turnOff()
             sys.exit()
         else:
             motorSpeeds = self.controller.getMotorPercents()
             self.drivetrain.setSpeed(motorSpeeds) 
-            print("Motor Speeds: " + str(motorSpeeds))
+            self.drivetrain.accelerationUpdate()               # remove this if using accelerationTimer in TankDriveAcceleration
+            print("Controller Speeds: " + str(motorSpeeds))
         
-        Timer(self.drivetrainUpdateTime, self.updateMotors).start()
+        diffT = time.time() - startT
+        waitT = self.drivetrainUpdateTime - diffT
+        errorT = self.drivetrainUpdateTime - (startT - self.lastT)
+        self.lastT = startT
+        #print("Wait: " + str(waitT) + ", Diff: " + str(diffT) + ", errorT: " + str(errorT))
+        Timer(waitT, self.updateMotors).start()
 
     def toggleLedStrip(self, toggleOn):
         if toggleOn:

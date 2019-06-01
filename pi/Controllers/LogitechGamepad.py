@@ -20,21 +20,16 @@ import time
 
 class LogitechGamepad(Controller):
     joystickMax = 255
-    leftMotorSetpoint = 0          #percent
-    rightMotorSetpoint = 0         #percent
 
-    stopDecelerationTime = 0.5     #seconds - for stop, decelerate from maxSpeed to 0 in this amount of time
+    # Stop buttons
     stopFast = False
-    stopJoystickThresh = 5         #trigger fast stop when both joysticks under this value
-    
-    acceleration = 30              #percent per second - general acceleration/deceleration
-    accelerationUpdateTime = 0.1   #seconds
+    isDownLeftBump = False
+    isDownRightBump = False
+    isDownB = False
 
-    toggleLeftBump = False
-    toggleRightBump = False
+    # Other buttons - thread is created to trigger the event, booleans are toggled each button press
     toggleA = False
     toggleX = False
-    toggleB = False
     btnAEvent = None
     btnXEvent = None
 
@@ -45,7 +40,6 @@ class LogitechGamepad(Controller):
             print(self.gamepad)
             print(pprint.pformat(self.gamepad.capabilities(verbose=True))) #get input options
             self.error = False
-            Timer(self.accelerationUpdateTime, self.accelerationTimer).start()
         except (FileNotFoundError, serial.SerialException):
             self.gamepad = None
             self.error = True
@@ -54,26 +48,7 @@ class LogitechGamepad(Controller):
     def getStatus(self):
         pass
 
-    def accelerationTimer(self):
-        startT = time.time()
-        leftDiff = self.leftMotorSetpoint - self.leftMotorPercent
-        rightDiff = self.rightMotorSetpoint - self.rightMotorPercent
-        leftInc = 0
-        rightInc = 0
-
-        if abs(self.leftMotorSetpoint) < self.stopJoystickThresh and abs(self.rightMotorSetpoint) < self.stopJoystickThresh:
-            leftInc = self.maxSpeed / (self.stopDecelerationTime / self.accelerationUpdateTime) 
-            rightInc = self.maxSpeed / (self.stopDecelerationTime / self.accelerationUpdateTime)           
-        else:
-            leftInc = self.acceleration * self.accelerationUpdateTime
-            rightInc = self.acceleration * self.accelerationUpdateTime   
-            
-        self.leftMotorPercent += min(leftInc, abs(leftDiff)) * (1 if leftDiff > 0 else -1)  
-        self.rightMotorPercent += min(rightInc, abs(rightDiff)) * (1 if rightDiff > 0 else -1)  
-        waitT = self.accelerationUpdateTime - (time.time() - startT)
-        #print("Wait: " + str(waitT))
-        Timer(waitT, self.accelerationTimer).start()
-
+    # Starts a thread for updateLoop, which reads continuously in a loop
     def startController(self):
         """
         Starts a thread that continuously reads gamepad and updates Controller variables
@@ -81,6 +56,7 @@ class LogitechGamepad(Controller):
         self.updateThread = Thread(target=self.updateLoop(), daemon=True)
         self.updateThread.start()
 
+    # Read continuously in a loop, does not exit
     def updateLoop(self):
         if self.gamepad is not None:
             try:
@@ -92,19 +68,25 @@ class LogitechGamepad(Controller):
         else:
             print("ERROR Gamepad is not plugged in")
 
+    # Read the input buffer until empty, exit when done
     def readAndUpdate(self):
         if self.gamepad is not None:
-            r,w,x = select([self.gamepad], [], [])
-            for event in self.gamepad.read():
-                self.handleEvent(event)
+            try:
+                r,w,x = select([self.gamepad], [], [])
+                for event in self.gamepad.read():
+                    self.handleEvent(event)
+            except Exception as e:
+                self.error = True
+                print(e)
         else:
             print("ERROR Gamepad is not plugged in")
-
+       
+    # Handle a Controller event, helper function for updateLoop and readAndUpdate
     def handleEvent(self, event):
         if event.type == ecodes.EV_KEY:
             keyevent = categorize(event)
             #print(keyevent.event)
-            print(keyevent.keycode)
+            print("KEY | " + str(keyevent.keycode))
 
             #Buttons with KeyEvent
             if keyevent.keystate == KeyEvent.key_down:
@@ -117,49 +99,46 @@ class LogitechGamepad(Controller):
                     if self.btnXEvent is not None:
                         Thread(target=self.btnXEvent, name='Btn X Thread', args=(self.toggleX,)).start()
                 elif keyevent.keycode == 'BTN_THUMB2':
-                    self.toggleB = True
+                    self.isDownB = True
                 elif keyevent.keycode == 'BTN_BASE':
-                    self.toggleLeftBump = True
+                    self.isDownLeftBump = True
                 elif keyevent.keycode == 'BTN_BASE2':
-                    self.toggleRightBump = True
+                    self.isDownRightBump = True
                 
                     
             if keyevent.keystate == KeyEvent.key_up:
                 if keyevent.keycode == 'BTN_BASE':
-                    self.toggleLeftBump = False
+                    self.isDownLeftBump = False
                 elif keyevent.keycode == 'BTN_BASE2':
-                    self.toggleRightBump = False
+                    self.isDownRightBump = False
                 elif keyevent.keycode == 'BTN_THUMB2':
-                    self.toggleB = False
+                    self.isDownB = False
 
         elif event.type == ecodes.EV_ABS:
             absevent = categorize(event)
             #print(absevent.event)
-            print(str(absevent.event.code) + " " + str(absevent.event.value))
+            print("ABS | " + str(absevent.event.code) + " " + str(absevent.event.value))
 
             # AbsEvent code values
             #ABS_Y / 1 / Left Y
             #ABS_X / 0 / Left X
             #ABS_RZ / 5 / Right Y
             #ABS_Z / 2 / Right X
-
             
             if self.stopFast:
-                self.leftMotorSetpoint = 0
-                self.rightMotorSetpoint = 0
+                self.leftMotorPercent = 0
+                self.rightMotorPercent = 0
             else:
                 if absevent.event.code == ecodes.ABS_Y:
                     #Left Y
-                    #self.leftMotorPercent = (self.maxSpeed - (2 * self.maxSpeed * absevent.event.value / self.joystickMax))
-                    self.leftMotorSetpoint = (self.maxSpeed - (2 * self.maxSpeed * absevent.event.value / self.joystickMax))
+                    self.leftMotorPercent = (self.maxSpeed - (2 * self.maxSpeed * absevent.event.value / self.joystickMax))
                 elif absevent.event.code == ecodes.ABS_RZ:
                     #Right Y
-                    #self.rightMotorPercent = (self.maxSpeed - (2 * self.maxSpeed * absevent.event.value / self.joystickMax))
-                    self.rightMotorSetpoint = (self.maxSpeed - (2 * self.maxSpeed * absevent.event.value / self.joystickMax))
+                    self.rightMotorPercent = (self.maxSpeed - (2 * self.maxSpeed * absevent.event.value / self.joystickMax))
 
-        if self.toggleLeftBump or self.toggleRightBump or self.toggleB:
-            self.leftMotorSetpoint = 0
-            self.rightMotorSetpoint = 0
+        if self.isDownLeftBump or self.isDownRightBump or self.isDownB:
+            self.leftMotorPercent = 0
+            self.rightMotorPercent = 0
             self.stopFast = True
         else:
             self.stopFast = False

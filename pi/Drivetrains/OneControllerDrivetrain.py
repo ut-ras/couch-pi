@@ -1,5 +1,4 @@
-from Sabertooth import Sabertooth
-
+from Drivers.Sabertooth import Sabertooth
 
 # https://github.com/MomsFriendlyRobotCompany/pysabertooth
 

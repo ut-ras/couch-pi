@@ -12,19 +12,20 @@
 # Enable UART
 # add "enable_uart=1" to /boot/config.txt
 
-from Sabertooth import Sabertooth
 from time import sleep
 import sys
 
-import Couches.Led as Led
-from Couches.testBenchCouch import testBenchCouch
+
 #from Controllers.CommandLineController import CommandLineController
 from Controllers.bluetoothController import BluetoothControl
 from Controllers.LogitechGamepad import LogitechGamepad
+from Couches.testBenchCouch import testBenchCouch
 from Drivetrains.OneControllerDrivetrain import OneControllerDrivetrain
+import Drivers.Led as Led
+from Drivers.Sabertooth import Sabertooth
 
 
-
+MAXSPEED = 90        # maxSpeed [0, 100]
 
 def driveTestGamepad():
     Led.ledInit(Led.ledGreen)
@@ -33,8 +34,9 @@ def driveTestGamepad():
 
     Led.ledOut(Led.ledBlue, True)
 
-    controller = LogitechGamepad(maxSpeed = 100)         # maxSpeed [0, 100]
-    couch = testBenchCouch(controller)
+    controller = LogitechGamepad(maxSpeed = MAXSPEED)
+    couch = testBenchCouch(controller) 
+
     controller.btnAEvent = couch.toggleLedStrip
     controller.btnXEvent = couch.toggleLedOrange
 

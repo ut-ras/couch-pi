@@ -13,6 +13,7 @@ ledRed = 22
 def ledInit(pin):  
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(pin, GPIO.OUT)
+    ledOut(pin, False)
 
 def ledOut(pin, output):
     GPIO.output(pin, output)
@@ -23,7 +24,7 @@ def ledOut(pin, output):
 class LedStrip():
     pixels = None           # NeoPixel object
     pixelThread = None      # cycle thread
-    pixelCycleSleep = 0.001
+    pixelCycleSleep = 0.005
     num_pixels = 108        # number of LEDs on the strip        108 = 30 + 30 + 24 + 24
     ORDER = neopixel.GRB    # order of colors on the strip
     
@@ -65,6 +66,7 @@ class LedStrip():
                     #print("Pixel: i=" + str(i) + ", cnt=" + str(count) + "color=" + str(color))
                 self.pixels.show()
                 count += 1
+                #time.sleep(self.pixelCycleSleep)
         except Exception as e:
             print(e)
 
@@ -94,8 +96,8 @@ class LedStrip():
         # first half of strip length will go from while -> orange
         # second half of strip length will go from orange -> white
         # sat_range determines the range of saturation values [(1 - sat_range), 1]
-        strip_len = 16
-        sat_range = 0.2
+        strip_len = 32
+        sat_range = 0.10
         i = (i + c * (strip_len / 2))   #shift based on c
         sat = ((i % int(strip_len / 2)) / int(strip_len / 2)) * sat_range
         if (i % strip_len) >= int(strip_len / 2):

@@ -40,11 +40,14 @@ Detailed Hardware BOM and CAD will be added soon
      * Reads leftMotorPercent and rightMotorPercent from Controller and updates the Drivetrain
      * Controller can be set, in the future we might want to switch which controller is active (physical backup controller for wireless)
      * `Couch.py` - Base couch class
-     * `testBenchCouch.py` - Current couch implementation, contains an LED strip and uses a fixed Timer to update the TankDrivetrain
-     * `Led.py` - LED functions and modules
+     * `testBenchCouch.py` - Current couch implementation, contains an LED strip and tank drivetrain. Uses a fixed Timer to update the drivetrain with controller values
  * `Drivetrains/`
      * Communicates with the Sabertooth Motor Controllers to drive the Motors
-     * `TankDrivetrain.py` - Tank Drive, motors on the same side are given the same speed
+     * `TankDrivetrain.py` - Tank Drive, motors on the same side are set to the same percent
+     * `TankDrivetrainAcceleration.py` - Tank Drive. Increments motor percents towards a setpoint over time. Can set this in a background timer or call manually
+ * `Drivers/`
+     * `Sabertooth.py` - Sabertooth driver
+     * `Led.py` - LED functions and modules 
  * `driveTest.py` - main file, launches Couch and Controller
 ### Pi Setup
 Install Requirements
@@ -77,6 +80,7 @@ sudo vim /etc/rc.local
 Android App - Wireless Bluetooth Controller
 ```
 android/app-debug.apk
+pi/Controllers/bluetoothController.py
 ```
 
 

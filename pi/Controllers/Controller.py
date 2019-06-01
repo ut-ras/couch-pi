@@ -12,6 +12,9 @@ class Controller(object):
         self.leftMotorPercent = 0       
         self.rightMotorPercent = 0
 
+        self.setMaxSpeed(maxSpeed)
+
+    def setMaxSpeed(self, maxSpeed):
         if maxSpeed > 100:
             maxSpeed = 100
         elif maxSpeed < 0:

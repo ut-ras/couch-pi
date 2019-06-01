@@ -1,8 +1,11 @@
-from Sabertooth import Sabertooth
+from Drivers.Sabertooth import Sabertooth
 import serial
 
 # https://github.com/MomsFriendlyRobotCompany/pysabertooth
 
+# Wiring
+# Connect Pi GPIO14 / UART_TX -> Sabertooth S1 pin on both drivers
+# Connect Pi Gnd -> Sabertooth Gnd (the one near S1) on both drivers
 
 class TankDrivetrain(object):
 

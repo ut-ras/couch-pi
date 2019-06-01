@@ -9,6 +9,9 @@
 #
 ##
 
+## CHANGES
+# Line 142         the serial flush() command was taking >0.1 seconds, causing some bottleneck and delay, so I removed it
+
 from __future__ import division
 import serial
 import logging
@@ -136,7 +139,7 @@ class Sabertooth(object):
         msg = bytes(bytearray(msg))
         self.serialObject.write(msg)
         # Flush UART.
-        self.serialObject.flush()
+        #self.serialObject.flush()              # the serial flush() command was taking >0.1 seconds, causing some bottleneck and delay, so I removed it
 
     def stop(self):
         """
