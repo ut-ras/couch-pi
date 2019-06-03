@@ -24,20 +24,18 @@ class testBenchCouch(Couch):
         #self.setDrivetrain(OneControllerDrivetrain('/dev/ttyS0'))       #one sabertooth (address 128)
         self.setDrivetrain(TankDrivetrainAcceleration('/dev/ttyS0', accelerationUpdateTime=self.drivetrainUpdateTime))               #two sabertooth (address 128, 129)
 
-    def startDrivetrainControl(self):
+    def startDrivetrainControl(self, controller_thread=True):
         # One Thread for reading controllers and updating motors
         #self.drivetrainThread = Thread(target=self.readControllerUpdateMotors(), daemon=True)
         #self.drivetrainThread.start()
 
-        # Two Threads for reading controllers and updating motors
-        # TODO issues with print statements from multiple threads, not sure if working
-        #self.controller.startController()                              
-        #self.drivetrainThread = Thread(target=self.updateMotors(), daemon=True)
-        #self.drivetrainThread.start()
-
         # One thread, one periodic timer
         Timer(self.drivetrainUpdateTime, self.updateMotors).start()
-        self.controller.startController() 
+
+        if controller_thread:
+            self.controller.startController() 
+        else:
+            self.controller.updateLoop()
 
     def readControllerUpdateMotors(self):
         """

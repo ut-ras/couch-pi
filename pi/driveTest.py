@@ -46,9 +46,9 @@ def driveTestGamepad():
         
     Led.ledOut(Led.ledGreen, True)
 
-    couch.startDrivetrainControl()
+    couch.startDrivetrainControl(controller_thread=True)
     while True:
-        sleep(1)
+        sleep(10)
 
 
 def driveTestBluetooth():

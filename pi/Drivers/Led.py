@@ -19,7 +19,7 @@ def ledOut(pin, output):
     GPIO.output(pin, output)
 
 
-# Wrapper for the NeoPixel object - for examples and custom functions
+# Wrapper for NeoPixel object - examples and custom functions
 # https://learn.adafruit.com/neopixels-on-raspberry-pi/python-usage
 class LedStrip():
     pixels = None           # NeoPixel object
@@ -29,11 +29,11 @@ class LedStrip():
     ORDER = neopixel.GRB    # order of colors on the strip
     
     # Colors
-    burntorange = (191, 30, 0)      #should be (191, 87, 0) but the green makes it look yellow
+    burntorange = (191, 30, 0)      #should be (191, 87, 0) but this looks yellow
     burntorange_hue = 9 / 255
     rainbow_shift = 20
 
-    # Modes:
+    # Modes: use setMode(mode)
     # 'R' = Rainbow, 'L' = Longhorn
     mode = 'R'                  
 
@@ -91,13 +91,11 @@ class LedStrip():
         self.pixels.brightness = b
 
     #burnt orange
-    def longhornCycle(self, i, c):
-        # uses HSV and adjusts the saturation to rotate between orange and white
-        # first half of strip length will go from while -> orange
-        # second half of strip length will go from orange -> white
-        # sat_range determines the range of saturation values [(1 - sat_range), 1]
-        strip_len = 32
-        sat_range = 0.10
+    # Adjusts the saturation to rotate between orange and white
+    # sat_range: range of saturation values [(1 - sat_range), 1]
+    # first half of strip_len white -> orange
+    # second half of strip_len orange -> white
+    def longhornCycle(self, i, c, strip_len = 32, sat_range = 0.10):
         i = (i + c * (strip_len / 2))   #shift based on c
         sat = ((i % int(strip_len / 2)) / int(strip_len / 2)) * sat_range
         if (i % strip_len) >= int(strip_len / 2):

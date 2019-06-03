@@ -1,4 +1,4 @@
-
+from threading import Thread
 
 class Controller(object):
     """
@@ -31,12 +31,19 @@ class Controller(object):
         """
         Starts a thread that continuously updates Controller variables
         """
-        pass
+        self.updateThread = Thread(target=self.updateLoop(), daemon=True)
+        self.updateThread.start()
 
     def readAndUpdate(self):
         """
         Read in values and update self.leftMotorPercent and self.rightMotorPercent and other variables
         Should not loop
+        """
+
+    def updateLoop(self):
+        """
+        Read in values and update self.leftMotorPercent and self.rightMotorPercent and other variables
+        Should loop
         """
 
     def getMotorPercents(self):

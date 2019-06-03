@@ -11,7 +11,7 @@ class BluetoothControl(Controller):
     
     After creating a BluetoothControl instance,
     1. Call "initialize"
-    2. Call "readAndUpdate"
+    2. Call "updateLoop"
     
     Then program will continuously wait for a device to connect
     and input commands using bluetooth
@@ -152,11 +152,11 @@ class BluetoothControl(Controller):
         """
         Starts a thread that continuously reads gamepad and updates Controller variables
         """
-        self.updateThread = Thread(target=self.readAndUpdate(), daemon=True)
+        self.updateThread = Thread(target=self.updateLoop(), daemon=True)
         self.updateThread.start()
     
     
-    def readAndUpdate(self):
+    def updateLoop(self):
       """
       Reads controls from bluetooth and sets speed on motors.
       """
@@ -172,3 +172,5 @@ class BluetoothControl(Controller):
       self.client_sock.close()
       self.server_sock.close()
 
+    def readAndUpdate(self):
+        pass

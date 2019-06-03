@@ -18,6 +18,14 @@ import time
 # Device event library evdev
 # https://python-evdev.readthedocs.io/en/latest/tutorial.html
 
+# Current Controls:
+# Stop: let go of joystick and hold down either B, Left Bumper, or Right Bumper
+# Left side speed: Left Joystick Y-Axis
+# Right side speed: Right Joystick Y-Axis
+# Rainbow LED: A
+# Orange LED: X
+# E-STOP is on Couch base, push in large red button
+
 class LogitechGamepad(Controller):
     joystickMax = 255
 
@@ -104,7 +112,6 @@ class LogitechGamepad(Controller):
                     self.isDownLeftBump = True
                 elif keyevent.keycode == 'BTN_BASE2':
                     self.isDownRightBump = True
-                
                     
             if keyevent.keystate == KeyEvent.key_up:
                 if keyevent.keycode == 'BTN_BASE':
@@ -136,6 +143,7 @@ class LogitechGamepad(Controller):
                     #Right Y
                     self.rightMotorPercent = (self.maxSpeed - (2 * self.maxSpeed * absevent.event.value / self.joystickMax))
 
+        # Stop Buttons
         if self.isDownLeftBump or self.isDownRightBump or self.isDownB:
             self.leftMotorPercent = 0
             self.rightMotorPercent = 0
