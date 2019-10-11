@@ -1,0 +1,17 @@
+*(#) = related
+
+Android:
+Tank Drive UI (app v2)
+Reconnect after closing app*(1)
+Safety measures
+Ability to add new devices (not hardcoded)
+UI alerts, indicator colors
+Bluetooth LED control*(2)
+
+After sensors: Battery power, speed, etc.
+
+Python:
+Connect 'xbox' controller after boot
+Switch/have both 'xbox' and bluetooth controllers concurrently
+Allow reconnection*(1)
+LED's*(2)
