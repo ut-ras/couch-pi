@@ -8,24 +8,32 @@
 
     <SeekBar
         android:id="@+id/seekBar4"
-        android:layout_width="272dp"
-        android:layout_height="19dp"
+        android:layout_width="350dp"
+        android:layout_height="39dp"
         android:rotation="270"
+        android:theme="@style/MySeekBar"
+        android:thumb="@drawable/seek_thumb"
+        android:progressDrawable="@drawable/seek_prog"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.473" />
 
     <SeekBar
         android:id="@+id/seekBar5"
-        android:layout_width="272dp"
-        android:layout_height="19dp"
+        android:layout_width="351dp"
+        android:layout_height="39dp"
+        android:progressDrawable="@drawable/seek_prog"
         android:rotation="270"
+        android:theme="@style/MySeekBar"
+        android:thumb="@drawable/seek_thumb"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.993"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.473" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
