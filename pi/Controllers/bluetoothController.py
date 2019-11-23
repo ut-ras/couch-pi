@@ -7,23 +7,23 @@ from threading import Thread
 
 class BluetoothControl(Controller):
     """
-    To use this class, 
-    
+    To use this class,
+
     After creating a BluetoothControl instance,
     1. Call "initialize"
     2. Call "updateLoop"
-    
+
     Then program will continuously wait for a device to connect
     and input commands using bluetooth
     """
-    
+
     def __init__(self,name="Bluetooth Controller", motorPowerPercent = 30):
         super().__init__(name)
         self.error = False
         self.motorPowerPercent = motorPowerPercent
         self.updateThread = None
         self.isStopped = False
-        
+
 
     def initialize(self):
         print("Starting Bluetooth Controller...")
@@ -31,10 +31,10 @@ class BluetoothControl(Controller):
         port = 1
         self.server_sock.bind(("",port))
         self.server_sock.listen(1)
-        print("Waiting for bluetooth connection . . .") 
+        print("Waiting for bluetooth connection . . .")
         self.client_sock,self.address = self.server_sock.accept()
         print ("Accepted connection from " + str(self.address))
-        
+
     def get_type(self,input_data):
         """
         returns data type of input_data
@@ -44,73 +44,73 @@ class BluetoothControl(Controller):
         except (ValueError, SyntaxError):
             # A string, so return str
             return str
-    
+
     def handleRightOn(self):
         self.leftMotorPercent = +self.motorPowerPercent
         self.rightMotorPercent = -self.motorPowerPercent
         print("right on handled")
         return
-    
+
     def handleRightOff(self):
         self.leftMotorPercent = 0
         self.rightMotorPercent = 0
         print("right off handled")
         return
-    
+
     def handleLeftOn(self):
         self.leftMotorPercent = -self.motorPowerPercent
         self.rightMotorPercent = +self.motorPowerPercent
         print("left on handled")
         return
-    
+
     def handleLeftOff(self):
         self.leftMotorPercent = 0
         self.rightMotorPercent = 0
         print("left off handled")
         return
-     
+
     def handleForwardOn(self):
         self.leftMotorPercent = self.motorPowerPercent
         self.rightMotorPercent = self.motorPowerPercent
         print("forward on handled")
         return
-    
+
     def handleForwardOff(self):
         self.leftMotorPercent = 0
         self.rightMotorPercent = 0
         print("forward off handled")
         return
-    
+
     def handleBackwardOn(self):
         self.leftMotorPercent -= self.motorPowerPercent
         self.rightMotorPercent -= self.motorPowerPercent
         print("backward on handled")
         return
-    
+
     def handleBackwardOff(self):
         self.leftMotorPercent = 0
         self.rightMotorPercent = 0
         print("backward off handled")
         return
-    
+
     def handleStop(self):
         self.isStopped = True
         self.leftMotorPercent = 0
         self.rightMotorPercent = 0
         print("stop handled")
         return
-    
+
     def handleStopOff(self):
         print("stop released")
         return
-    
+
     def handleSpeed(self,speed):
         #self.motorPowerPercent = speed
         print("speed changed to %d.....but speed change is not yet implemented.", speed)
         return
-     
+
     def handle_input(self,argument):
-        
+
         myType = self.get_type(argument)
         if(myType == type("1")):
             argument = str(argument)[2:-1]
@@ -147,20 +147,20 @@ class BluetoothControl(Controller):
         else:
             print("handled the following:")
             print(argument)
-    
+
     def startController(self):
         """
-        Starts a thread that continuously reads gamepad and updates Controller variables
+        Starts a thread that continuously reads bluetooth and updates Controller variables
         """
         self.updateThread = Thread(target=self.updateLoop(), daemon=True)
         self.updateThread.start()
-    
-    
+
+
     def updateLoop(self):
       """
       Reads controls from bluetooth and sets speed on motors.
       """
-      while(1): 
+      while(1):
           try:
               data = self.client_sock.recv(1024)
               print ("received [%s]" % data)
@@ -168,7 +168,6 @@ class BluetoothControl(Controller):
           except:
               self.leftMotorPercent = 0
               self.rightMotorPercent = 0
-    
       self.client_sock.close()
       self.server_sock.close()
 

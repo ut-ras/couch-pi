@@ -1,11 +1,11 @@
 # Uses Bluez for Linux
 #
 # sudo apt-get install bluez python-bluez
-# 
+#
 # Taken from: https://people.csail.mit.edu/albert/bluez-intro/x232.html
 # Taken from: https://people.csail.mit.edu/albert/bluez-intro/c212.html
 """
-For testing bluetooth connection with android application, 
+For testing bluetooth connection with android application,
 and testing receiving of messages from application.
 
 Does not interact with motors.
@@ -45,7 +45,7 @@ def handleLeftOff():
     #do stuff
     print("left off handled")
     return
- 
+
 def handleForwardOn():
     #do stuff
     print("forward on handled")
@@ -81,7 +81,7 @@ def handleTest():
     return
 
 handler = {
-        #all data has letter "b" before string and '' around sent string 
+        #all data has letter "b" before string and '' around sent string
         "Stop": handleStop,
         "Forward On": handleForwardOn,
         "Forward Off": handleForwardOff,
@@ -92,10 +92,10 @@ handler = {
         "Backward On": handleBackwardOn,
         "Backward Off": handleBackwardOff
 }
- 
- 
+
+
 def handle_input(argument):
-    
+
     myType = get_type(argument)
     if(myType == type("1")):
         print(argument)
@@ -120,29 +120,35 @@ def receiveMessages():
   port = 1
   server_sock.bind(("",port))
   server_sock.listen(1)
-  print("Waiting for bluetooth connection . . .") 
+  print("Waiting for bluetooth connection . . .")
   client_sock,address = server_sock.accept()
   print ("Accepted connection from " + str(address))
-  while(1): 
-      data = client_sock.recv(1024)
-      print ("received [%s]" % data)
-      handle_input(data)
+  while(1):
+        try:
+            data = client_sock.recv(1024)
+            print ("received [%s]" % data)
+            handle_input(data)
+        except:
+            print("something happened")
+            client_sock.close()
+            server_sock.close()
+            receiveMessages()
 
   client_sock.close()
   server_sock.close()
-  
+
 def sendMessageTo(targetBluetoothMacAddress):
   port = 1
   sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
   sock.connect((targetBluetoothMacAddress, port))
   sock.send("hello!!")
   sock.close()
-  
+
 def lookUpNearbyBluetoothDevices():
   nearby_devices = bluetooth.discover_devices()
   for bdaddr in nearby_devices:
     print (str(bluetooth.lookup_name( bdaddr )) + " [" + str(bdaddr) + "]")
-    
-    
+
+
 #lookUpNearbyBluetoothDevices()
 receiveMessages()

@@ -35,7 +35,7 @@ def driveTestGamepad():
     Led.ledOut(Led.ledBlue, True)
 
     controller = LogitechGamepad(maxSpeed = MAXSPEED)
-    couch = testBenchCouch(controller) 
+    couch = testBenchCouch(controller)
 
     controller.btnAEvent = couch.toggleLedStrip
     controller.btnXEvent = couch.toggleLedOrange
@@ -43,10 +43,11 @@ def driveTestGamepad():
     if couch.drivetrain.error or controller.error:
         Led.ledOut(Led.ledRed, True)
         sys.exit()
-        
+
     Led.ledOut(Led.ledGreen, True)
 
-    couch.startDrivetrainControl(controller_thread=True)
+    #couch.startDrivetrainControl(controller_thread=True)
+    couch.startDrivetrainControl()
     while True:
         sleep(10)
 
@@ -57,16 +58,16 @@ def driveTestBluetooth():
     Led.ledInit(Led.ledRed)
 
     Led.ledOut(Led.ledBlue, True)
-    
+
     controller = BluetoothControl()
     couch = testBenchCouch(controller)
-    
+
     if controller.error:
         Led.ledOut(Led.ledRed, True)
         sys.exit()
-        
+
     Led.ledOut(Led.ledGreen, True)
-    
+
     couch.startDrivetrainControl()
     while 1:
        print(controller.getMotorPercents())
@@ -85,5 +86,5 @@ def driveTestSabertooth():
 
 
 #driveTestSabertooth()
-#driveTestBluetooth()
-driveTestGamepad()
+driveTestBluetooth()
+#driveTestGamepad()

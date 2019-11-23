@@ -32,10 +32,11 @@ class testBenchCouch(Couch):
         # One thread, one periodic timer
         Timer(self.drivetrainUpdateTime, self.updateMotors).start()
 
-        if controller_thread:
-            self.controller.startController() 
-        else:
-            self.controller.updateLoop()
+        #if controller_thread:
+        #    self.controller.startController()
+        #else:
+        #    self.controller.updateLoop()
+        self.controller.startController()
 
     def readControllerUpdateMotors(self):
         """
@@ -66,10 +67,10 @@ class testBenchCouch(Couch):
             sys.exit()
         else:
             motorSpeeds = self.controller.getMotorPercents()
-            self.drivetrain.setSpeed(motorSpeeds) 
+            self.drivetrain.setSpeed(motorSpeeds)
             self.drivetrain.accelerationUpdate()               # remove this if using accelerationTimer in TankDriveAcceleration
             print("Controller Speeds: " + str(motorSpeeds))
-        
+
         diffT = time.time() - startT
         waitT = self.drivetrainUpdateTime - diffT
         errorT = self.drivetrainUpdateTime - (startT - self.lastT)
@@ -83,11 +84,10 @@ class testBenchCouch(Couch):
             self.led.setMode('R')
         else:
             self.led.turnOff()
-            
+
     def toggleLedOrange(self, toggleOn):
         if toggleOn:
             self.led.turnOn()
             self.led.setMode('L')
         else:
             self.led.turnOff()
-
