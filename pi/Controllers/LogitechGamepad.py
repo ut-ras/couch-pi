@@ -71,8 +71,10 @@ class LogitechGamepad(Controller):
                 for event in self.gamepad.read_loop():
                     self.handleEvent(event)
             except Exception as e:
-                self.error = True
+                #self.error = True
                 print(e)
+                self.leftMotorPercent = 0
+                self.rightMotorPercent = 0
         else:
             print("ERROR Gamepad is not plugged in")
 

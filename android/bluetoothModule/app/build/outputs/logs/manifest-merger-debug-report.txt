@@ -1,0 +1,184 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:2:1-26:12
+INJECTED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:2:1-26:12
+INJECTED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:2:1-26:12
+INJECTED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:2:1-26:12
+MERGED from [com.android.support:design:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/5a955a66d6f0a81db3885b6f0f5d0a20/AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:appcompat-v7:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/cdb35a49827706cebb5b5407180a89b7/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/takuma/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/a1c6fd8c68bcb8f0b32882f9d7cd41bf/AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:support-fragment:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/ae6cd8fe3e03d5e0cdfbea25221135a2/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/8dfc5e05ed885a0ab1aea0a71ad8de70/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:recyclerview-v7:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-28.0.0.aar/dbab7f2fdd703b336af3c1dcf9523112/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0.aar/29bff51d14404275c6d10f9bbf3d5027/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0.aar/de99b87566ac92b0e7dafa44478d7b31/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/b06f533697c0106f087bf02be44f1323/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:transition:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/transition-28.0.0.aar/bc564c0dc351f7a023caad2bfc8adab6/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:loader:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/loader-28.0.0.aar/5dcd5054b774beb956b32d7035cec2ed/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:viewpager:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/viewpager-28.0.0.aar/e7e7f7d04b74276b7f59043cb23ba7e7/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-28.0.0.aar/6235291ab3ef455e09c8b503cd444ec1/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:drawerlayout:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/drawerlayout-28.0.0.aar/e863e8c947956643d380688b8098fa04/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-28.0.0.aar/b3a0b67ff82c28f01eac3ffff1c0a9b4/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:customview:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/customview-28.0.0.aar/c96e28e98a4ab2c76ffd08ae638f989a/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0.aar/df95b5ad79160ae829c579fd78bc3089/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0.aar/8ca7fe20a6aaca93203776de2e27727f/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/81ca5460ccb082fffc366866e3939d67/AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:versionedparcelable:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/112726e304b1c1b4d53d214d4714c320/AndroidManifest.xml:17:1-25:12
+MERGED from [com.android.support:cursoradapter:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/a168f4125e47f14220b5ad324dd67648/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:cardview-v7:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/cardview-v7-28.0.0.aar/b0b0881fa3507c46f298de4f627fc71a/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /home/takuma/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/e21ace0cb55591d880c071f9072ea015/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:documentfile:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/documentfile-28.0.0.aar/b21a72076b2d4b6368dfbad2050b2a06/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-28.0.0.aar/965d16b2ccc022b885797718e58ebed6/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:print:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/print-28.0.0.aar/5c4c3ca4290fffba6c99d4b517fa634f/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /home/takuma/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.1.aar/70275d7a55a5d55a3b1f317c4e1fbf67/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:interpolator:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/interpolator-28.0.0.aar/5a802bfa0dac2b2368b93fe48f56195d/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /home/takuma/.gradle/caches/transforms-1/files-1.1/livedata-1.1.1.aar/a22500bbb7f5f5b32d16113cfb28fabc/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /home/takuma/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/bd82e0faeca78d9e44668bd4634edb09/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.1] /home/takuma/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/ac853aac2d17738be46158dd7acd923f/AndroidManifest.xml:17:1-22:12
+INJECTED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:2:1-26:12
+INJECTED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:2:1-26:12
+INJECTED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:2:1-26:12
+	package
+		ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:3:5-49
+		INJECTED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml
+		INJECTED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml
+		ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:2:1-26:12
+		INJECTED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml
+		ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:2:1-26:12
+		INJECTED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.BLUETOOTH
+ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:4:5-68
+	android:name
+		ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:4:22-65
+uses-permission#android.permission.BLUETOOTH_ADMIN
+ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:5:5-74
+	android:name
+		ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:5:22-71
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:6:5-81
+	android:name
+		ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:6:22-78
+application
+ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:7:5-24:19
+MERGED from [com.android.support:design:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/5a955a66d6f0a81db3885b6f0f5d0a20/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:design:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/5a955a66d6f0a81db3885b6f0f5d0a20/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/takuma/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/a1c6fd8c68bcb8f0b32882f9d7cd41bf/AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/takuma/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/a1c6fd8c68bcb8f0b32882f9d7cd41bf/AndroidManifest.xml:9:5-20
+MERGED from [com.android.support:support-compat:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/81ca5460ccb082fffc366866e3939d67/AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:support-compat:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/81ca5460ccb082fffc366866e3939d67/AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:versionedparcelable:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/112726e304b1c1b4d53d214d4714c320/AndroidManifest.xml:22:5-23:19
+MERGED from [com.android.support:versionedparcelable:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/112726e304b1c1b4d53d214d4714c320/AndroidManifest.xml:22:5-23:19
+	android:appComponentFactory
+		ADDED from [com.android.support:support-compat:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/81ca5460ccb082fffc366866e3939d67/AndroidManifest.xml:22:18-91
+	android:supportsRtl
+		ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:12:9-35
+	android:label
+		ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:10:9-41
+	android:roundIcon
+		ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:11:9-54
+	android:icon
+		ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:9:9-43
+	android:allowBackup
+		ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:8:9-35
+	android:theme
+		ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:13:9-40
+activity#com.example.takuma.bluetoothmodule.MainActivity
+ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:14:9-23:20
+	android:label
+		ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:16:13-45
+	android:theme
+		ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:17:13-56
+	android:name
+		ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:15:13-41
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:18:13-22:29
+action#android.intent.action.MAIN
+ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:19:17-69
+	android:name
+		ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:19:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:21:17-77
+	android:name
+		ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml:21:27-74
+uses-sdk
+INJECTED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml
+INJECTED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml
+MERGED from [com.android.support:design:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/5a955a66d6f0a81db3885b6f0f5d0a20/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:design:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/5a955a66d6f0a81db3885b6f0f5d0a20/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/cdb35a49827706cebb5b5407180a89b7/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/cdb35a49827706cebb5b5407180a89b7/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/takuma/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/a1c6fd8c68bcb8f0b32882f9d7cd41bf/AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/takuma/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/a1c6fd8c68bcb8f0b32882f9d7cd41bf/AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:support-fragment:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/ae6cd8fe3e03d5e0cdfbea25221135a2/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/ae6cd8fe3e03d5e0cdfbea25221135a2/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/8dfc5e05ed885a0ab1aea0a71ad8de70/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/8dfc5e05ed885a0ab1aea0a71ad8de70/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-28.0.0.aar/dbab7f2fdd703b336af3c1dcf9523112/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-28.0.0.aar/dbab7f2fdd703b336af3c1dcf9523112/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0.aar/29bff51d14404275c6d10f9bbf3d5027/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0.aar/29bff51d14404275c6d10f9bbf3d5027/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0.aar/de99b87566ac92b0e7dafa44478d7b31/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0.aar/de99b87566ac92b0e7dafa44478d7b31/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/b06f533697c0106f087bf02be44f1323/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/b06f533697c0106f087bf02be44f1323/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/transition-28.0.0.aar/bc564c0dc351f7a023caad2bfc8adab6/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/transition-28.0.0.aar/bc564c0dc351f7a023caad2bfc8adab6/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/loader-28.0.0.aar/5dcd5054b774beb956b32d7035cec2ed/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/loader-28.0.0.aar/5dcd5054b774beb956b32d7035cec2ed/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/viewpager-28.0.0.aar/e7e7f7d04b74276b7f59043cb23ba7e7/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/viewpager-28.0.0.aar/e7e7f7d04b74276b7f59043cb23ba7e7/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-28.0.0.aar/6235291ab3ef455e09c8b503cd444ec1/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-28.0.0.aar/6235291ab3ef455e09c8b503cd444ec1/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/drawerlayout-28.0.0.aar/e863e8c947956643d380688b8098fa04/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/drawerlayout-28.0.0.aar/e863e8c947956643d380688b8098fa04/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-28.0.0.aar/b3a0b67ff82c28f01eac3ffff1c0a9b4/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-28.0.0.aar/b3a0b67ff82c28f01eac3ffff1c0a9b4/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/customview-28.0.0.aar/c96e28e98a4ab2c76ffd08ae638f989a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/customview-28.0.0.aar/c96e28e98a4ab2c76ffd08ae638f989a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0.aar/df95b5ad79160ae829c579fd78bc3089/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0.aar/df95b5ad79160ae829c579fd78bc3089/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0.aar/8ca7fe20a6aaca93203776de2e27727f/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0.aar/8ca7fe20a6aaca93203776de2e27727f/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/81ca5460ccb082fffc366866e3939d67/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/81ca5460ccb082fffc366866e3939d67/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/112726e304b1c1b4d53d214d4714c320/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/112726e304b1c1b4d53d214d4714c320/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/a168f4125e47f14220b5ad324dd67648/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/a168f4125e47f14220b5ad324dd67648/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/cardview-v7-28.0.0.aar/b0b0881fa3507c46f298de4f627fc71a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/cardview-v7-28.0.0.aar/b0b0881fa3507c46f298de4f627fc71a/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /home/takuma/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/e21ace0cb55591d880c071f9072ea015/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /home/takuma/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/e21ace0cb55591d880c071f9072ea015/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/documentfile-28.0.0.aar/b21a72076b2d4b6368dfbad2050b2a06/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/documentfile-28.0.0.aar/b21a72076b2d4b6368dfbad2050b2a06/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-28.0.0.aar/965d16b2ccc022b885797718e58ebed6/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-28.0.0.aar/965d16b2ccc022b885797718e58ebed6/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/print-28.0.0.aar/5c4c3ca4290fffba6c99d4b517fa634f/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/print-28.0.0.aar/5c4c3ca4290fffba6c99d4b517fa634f/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /home/takuma/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.1.aar/70275d7a55a5d55a3b1f317c4e1fbf67/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /home/takuma/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.1.aar/70275d7a55a5d55a3b1f317c4e1fbf67/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/interpolator-28.0.0.aar/5a802bfa0dac2b2368b93fe48f56195d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] /home/takuma/.gradle/caches/transforms-1/files-1.1/interpolator-28.0.0.aar/5a802bfa0dac2b2368b93fe48f56195d/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /home/takuma/.gradle/caches/transforms-1/files-1.1/livedata-1.1.1.aar/a22500bbb7f5f5b32d16113cfb28fabc/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /home/takuma/.gradle/caches/transforms-1/files-1.1/livedata-1.1.1.aar/a22500bbb7f5f5b32d16113cfb28fabc/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /home/takuma/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/bd82e0faeca78d9e44668bd4634edb09/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /home/takuma/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/bd82e0faeca78d9e44668bd4634edb09/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] /home/takuma/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/ac853aac2d17738be46158dd7acd923f/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] /home/takuma/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/ac853aac2d17738be46158dd7acd923f/AndroidManifest.xml:20:5-44
+INJECTED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml
+INJECTED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml
+		ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml
+		INJECTED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml
+		ADDED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml
+		INJECTED from /home/takuma/AndroidStudioProjects/bluetoothModule/app/src/main/AndroidManifest.xml
